@@ -28,9 +28,14 @@ export default function Header() {
 
                     <div className="h-6 w-[1px] bg-slate-100"></div>
 
-                    <button className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-orange-600 transition-all shadow-lg shadow-orange-100 hover:scale-[1.02] active:scale-95">
+                    <a
+                        href="https://wa.me/526563230397"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-orange-600 transition-all shadow-lg shadow-orange-100 hover:scale-[1.02] active:scale-95"
+                    >
                         <LucideIcons.PlusCircle size={16} /> Sumar mi Negocio
-                    </button>
+                    </a>
                 </nav>
 
                 {/* Mobile Toggle */}
@@ -74,9 +79,14 @@ export default function Header() {
                         >
                             Pet Friendly
                         </Link>
-                        <button className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-orange-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest">
+                        <a
+                            href="https://wa.me/526563230397"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full flex items-center justify-center gap-2 px-6 py-4 bg-orange-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest"
+                        >
                             <LucideIcons.PlusCircle size={16} /> Sumar mi Negocio
-                        </button>
+                        </a>
                     </nav>
                 </div>
             )}
