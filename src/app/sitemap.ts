@@ -1,4 +1,5 @@
-import { businesses, municipios, categories } from '@/data/db';
+import { businesses, municipios } from '@/data/db';
+import { categories } from '@/data/categories';
 import { MetadataRoute } from 'next';
 
 const BASE_URL = 'https://mascotasoaxaca.com';
@@ -22,16 +23,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.8,
     }));
 
-    // Category in municipality routes
-    const categoryRoutes = [];
+    // Category and Subcategory in municipality routes
+    const categoryRoutes: any[] = [];
     for (const muni of municipios) {
         for (const cat of categories) {
+            // Main category
             categoryRoutes.push({
                 url: `${BASE_URL}/${muni.slug}/${cat.slug}`,
                 lastModified: new Date(),
                 changeFrequency: 'weekly' as const,
                 priority: 0.7,
             });
+            // Subcategories
+            for (const sub of cat.subcategories) {
+                categoryRoutes.push({
+                    url: `${BASE_URL}/${muni.slug}/${sub.slug}`,
+                    lastModified: new Date(),
+                    changeFrequency: 'weekly' as const,
+                    priority: 0.65,
+                });
+            }
         }
     }
 

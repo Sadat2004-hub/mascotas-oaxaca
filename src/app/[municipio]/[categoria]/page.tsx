@@ -1,7 +1,9 @@
-import { businesses, municipios, categories } from '@/data/db';
+import { businesses, municipios } from '@/data/db';
+import { findCategoryBySlug } from '@/data/categoryUtils';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as LucideIcons from 'lucide-react';
 
 interface Props {
     params: Promise<{
@@ -13,85 +15,117 @@ interface Props {
 export default async function CategoryPage({ params }: Props) {
     const { municipio, categoria } = await params;
     const muni = municipios.find((m) => m.slug === municipio);
-    const cat = categories.find((c) => c.slug === categoria);
+    const result = findCategoryBySlug(categoria);
 
-    if (!muni || !cat) {
+    if (!muni || !result) {
         notFound();
     }
 
-    const filteredBusinesses = businesses.filter(
-        (b) => b.municipio === municipio && b.categoria === categoria
-    );
+    const isSub = result.type === 'subcategory';
+    const categoryName = isSub ? result.data.title : result.data.title;
+
+    // Filter logic: if it's a main category, show all businesses in its subcategories
+    // if it's a subcategory, show only those
+    const filteredBusinesses = businesses.filter((b) => {
+        if (b.municipio !== municipio) return false;
+        if (result.type === 'subcategory') {
+            return b.categoria === result.data.slug;
+        } else {
+            // result is a main category
+            const subSlugs = result.data.subcategories.map(s => s.slug);
+            return subSlugs.includes(b.categoria);
+        }
+    });
 
     return (
-        <div className="container mx-auto px-4 py-12">
-            <div className="mb-12">
-                <nav className="flex text-sm text-gray-500 mb-4 gap-2">
-                    <Link href="/" className="hover:text-indigo-600">Inicio</Link>
-                    <span>/</span>
-                    <Link href={`/${municipio}`} className="hover:text-indigo-600">{muni.name}</Link>
-                    <span>/</span>
-                    <span className="text-gray-900 font-medium">{cat.name}</span>
+        <div className="container mx-auto px-4 py-20">
+            <div className="mb-16">
+                <nav className="flex items-center text-sm text-gray-400 mb-8 gap-3 font-semibold uppercase tracking-widest">
+                    <Link href="/" className="hover:text-indigo-600 transition-colors">Inicio</Link>
+                    <LucideIcons.ChevronRight size={14} />
+                    <Link href={`/${municipio}`} className="hover:text-indigo-600 transition-colors">{muni.name}</Link>
+                    <LucideIcons.ChevronRight size={14} />
+                    <span className="text-gray-900">{categoryName}</span>
                 </nav>
-                <h1 className="text-4xl font-black text-gray-900 mb-4">
-                    {cat.name} en <span className="text-indigo-600">{muni.name}</span>
-                </h1>
-                <p className="text-xl text-gray-500">
-                    Encontramos {filteredBusinesses.length} {filteredBusinesses.length === 1 ? 'resultado' : 'resultados'} para tu búsqueda.
-                </p>
+
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div className="max-w-3xl">
+                        <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-6 tracking-tighter leading-none">
+                            {categoryName} <br />
+                            <span className="text-indigo-600">en {muni.name}</span>
+                        </h1>
+                        <p className="text-xl text-gray-500 font-light leading-relaxed">
+                            Explora las mejores opciones de {categoryName.toLowerCase()} calificadas por dueños de mascotas en {muni.name}, Oaxaca.
+                        </p>
+                    </div>
+                    <div className="bg-indigo-50 border border-indigo-100 px-8 py-6 rounded-[2rem] text-center">
+                        <span className="block text-4xl font-black text-indigo-600 leading-none mb-1">{filteredBusinesses.length}</span>
+                        <span className="text-xs font-bold text-indigo-400 uppercase tracking-widest">Negocios encontrados</span>
+                    </div>
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {filteredBusinesses.map((business) => (
                     <Link
                         key={business.id}
                         href={`/${municipio}/${categoria}/${business.slug}`}
-                        className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 transition-all"
+                        className="group bg-white rounded-[2.5rem] border border-gray-100 overflow-hidden hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500"
                     >
-                        <div className="relative h-64 overflow-hidden">
+                        <div className="relative h-72 overflow-hidden">
                             <Image
                                 src={business.image}
                                 alt={business.name}
                                 fill
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="object-cover group-hover:scale-110 transition-transform duration-700"
                             />
-                            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-gray-900 shadow-sm">
-                                {business.priceRange}
-                            </div>
-                        </div>
-                        <div className="p-8">
-                            <div className="flex justify-between items-start mb-2">
-                                <h3 className="text-xl font-bold text-gray-900 group-hover:text-indigo-600 transition-colors uppercase tracking-tight">{business.name}</h3>
-                                <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
-                                    <span className="text-yellow-500 text-xs">★</span>
-                                    <span className="text-xs font-bold text-yellow-700">{business.rating}</span>
+                            <div className="absolute top-6 left-6 flex gap-2">
+                                <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl text-[10px] font-black text-indigo-600 shadow-xl uppercase tracking-widest">
+                                    {business.priceRange}
                                 </div>
                             </div>
-                            <p className="text-gray-500 text-sm line-clamp-2 mb-6 leading-relaxed">
+                            <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/60 to-transparent">
+                                <div className="flex items-center gap-1.5 bg-yellow-400 px-3 py-1 rounded-full w-fit">
+                                    <LucideIcons.Star size={12} fill="currentColor" stroke="none" />
+                                    <span className="text-xs font-black text-yellow-950">{business.rating}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="p-10">
+                            <h3 className="text-2xl font-black text-gray-900 group-hover:text-indigo-600 transition-colors uppercase tracking-tighter mb-4 leading-tight">
+                                {business.name}
+                            </h3>
+                            <p className="text-gray-500 text-sm line-clamp-2 mb-8 leading-relaxed font-medium">
                                 {business.description}
                             </p>
-                            <div className="flex flex-wrap gap-2 mb-6">
+
+                            <div className="flex flex-wrap gap-2 mb-8">
                                 {business.tags.slice(0, 3).map(tag => (
-                                    <span key={tag} className="text-[10px] uppercase font-bold tracking-widest text-gray-400 bg-gray-50 px-2 py-1 rounded">
-                                        {tag}
+                                    <span key={tag} className="text-[10px] uppercase font-bold tracking-widest text-indigo-400 bg-indigo-50 px-3 py-1.5 rounded-xl">
+                                        #{tag}
                                     </span>
                                 ))}
                             </div>
-                            <div className="flex items-center justify-between pt-6 border-t border-gray-50">
-                                <span className="text-xs font-bold text-indigo-600">VER FICHA COMPLETA →</span>
-                                <span className="text-xs text-gray-400">{business.address.split(',')[0]}</span>
+
+                            <div className="flex items-center justify-between pt-8 border-t border-gray-50">
+                                <span className="text-xs font-black text-indigo-600 uppercase tracking-widest flex items-center gap-2">
+                                    Ver Detalles <LucideIcons.ArrowRight size={14} />
+                                </span>
+                                <span className="text-xs font-bold text-gray-400 max-w-[150px] truncate">{business.address.split(',')[0]}</span>
                             </div>
                         </div>
                     </Link>
                 ))}
 
                 {filteredBusinesses.length === 0 && (
-                    <div className="col-span-full py-20 text-center bg-gray-50 rounded-3xl border-2 border-dashed border-gray-200">
-                        <span className="text-6xl mb-4 block">🔍</span>
-                        <h3 className="text-xl font-bold text-gray-900 mb-2">No encontramos resultados</h3>
-                        <p className="text-gray-500 mb-8">Lo sentimos, aún no tenemos negocios registrados en esta categoría y ubicación.</p>
-                        <button className="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-indigo-700 transition-all">
-                            Quiero registrar mi negocio
+                    <div className="col-span-full py-32 text-center bg-gray-50 rounded-[3rem] border-4 border-dashed border-gray-100">
+                        <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl">
+                            <LucideIcons.Search size={40} className="text-gray-200" />
+                        </div>
+                        <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tighter">No encontramos resultados</h3>
+                        <p className="text-gray-500 mb-12 max-w-md mx-auto font-medium">Lo sentimos, aún no tenemos negocios registrados en la categoría <span className="text-indigo-600 font-bold">{categoryName}</span> para esta zona.</p>
+                        <button className="bg-indigo-600 text-white px-10 py-5 rounded-[2rem] font-black hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
+                            Quiero registrar mi negocio GRATIS
                         </button>
                     </div>
                 )}
