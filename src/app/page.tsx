@@ -20,7 +20,7 @@ export default function Home() {
       <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="https://images.unsplash.com/photo-1450778869180-41d0601e046e?auto=format&fit=crop&q=80&w=2000"
+            src="/images/hero/hero-principal.jpg"
             alt="Mascotas felices en Oaxaca"
             fill
             className="object-cover brightness-90"

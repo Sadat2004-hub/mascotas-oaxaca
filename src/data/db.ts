@@ -1,3 +1,11 @@
+export interface Review {
+    id: string;
+    user: string;
+    rating: number;
+    comment: string;
+    date: string;
+}
+
 export interface Business {
     id: string;
     name: string;
@@ -10,16 +18,8 @@ export interface Business {
     image: string;
     rating: number;
     reviews: Review[];
-    priceRange: string;
     tags: string[];
-}
-
-export interface Review {
-    id: string;
-    user: string;
-    rating: number;
-    comment: string;
-    date: string;
+    priceRange: string;
 }
 
 export interface Municipio {
@@ -28,32 +28,24 @@ export interface Municipio {
     slug: string;
 }
 
-export const municipios: Municipio[] = [
-    { id: '1', name: 'Oaxaca Centro', slug: 'oaxaca-centro' },
-    { id: '2', name: 'Santa Cruz Xoxocotlán', slug: 'xoxocotlan' },
-    { id: '3', name: 'Santa Lucía del Camino', slug: 'santa-lucia' },
-    { id: '4', name: 'San Sebastián Tutla', slug: 'san-sebastian-tutla' },
-    { id: '5', name: 'Tlacolula de Matamoros', slug: 'tlacolula' },
-];
-
 export const businesses: Business[] = [
     {
         id: '1',
-        name: 'Hospital Veterinario Dogtor',
-        slug: 'hospital-veterinario-dogtor',
+        name: 'Hospital Veterinario de Oaxaca',
+        slug: 'hospital-veterinario-de-oaxaca',
         municipio: 'oaxaca-centro',
         categoria: 'veterinarias',
-        description: 'Atención especializada para tus mascotas las 24 horas del día. Contamos con quirófano, laboratorio y rayos X para diagnósticos precisos.',
-        address: 'Calle de los Libres 405, Centro, 68000 Oaxaca de Juárez, Oax.',
-        telephone: '+529511234567',
-        image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800',
-        rating: 4.8,
-        priceRange: '$$',
-        tags: ['urgencias', 'cirugía', 'vacunas', 'farmacia'],
+        description: 'Especialistas en cirugía, medicina interna y urgencias 24 horas. Contamos con tecnología de vanguardia para la salud de tu mascota.',
+        address: 'Calle de los Libres 123, Centro Histórico, Oaxaca',
+        telephone: '+52 951 123 4567',
+        image: '/images/businesses/veterinaria-hospital.jpg',
+        rating: 4.9,
         reviews: [
-            { id: 'r1', user: 'Juan Pérez', rating: 5, comment: 'Excelente atención, salvaron a mi perrito.', date: '2023-10-15' },
-            { id: 'r2', user: 'Maria G.', rating: 4, comment: 'Muy profesionales aunque un poco caro.', date: '2023-11-02' }
-        ]
+            { id: 'r1', user: 'María G.', rating: 5, comment: 'Excelente atención, salvaron a mi perrito en una emergencia nocturna.', date: '2024-01-15' },
+            { id: 'r2', user: 'Carlos M.', rating: 4, comment: 'Muy profesionales, aunque a veces hay que esperar un poco.', date: '2024-01-10' }
+        ],
+        tags: ['urgencias-24h', 'cirugia', 'rayos-x', 'hospitalizacion'],
+        priceRange: '$$$'
     },
     {
         id: '2',
@@ -61,28 +53,40 @@ export const businesses: Business[] = [
         slug: 'grooming-oaxaca-loft',
         municipio: 'oaxaca-centro',
         categoria: 'esteticas-grooming',
-        description: 'El mejor spa para tu mejor amigo. Cortes de raza, baño medicado y spa relajante.',
-        address: 'Av. Juárez 802, Centro, 68000 Oaxaca de Juárez, Oax.',
-        telephone: '+529519876543',
-        image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800',
-        rating: 4.5,
-        priceRange: '$',
-        tags: ['corte de pelo', 'spa', 'limpieza dental'],
-        reviews: []
+        description: 'Estética canina profesional y spa. Cortes de raza, baño medicado y masajes relajantes para tu mejor amigo.',
+        address: 'Av. Juárez 456, Santa María del Tule, Oaxaca',
+        telephone: '+52 951 987 6543',
+        image: '/images/businesses/grooming-loft.jpg',
+        rating: 4.8,
+        reviews: [
+            { id: 'r3', user: 'Ana P.', rating: 5, comment: 'El mejor corte que le han hecho a mi Poodle. Muy cuidadosos.', date: '2024-01-12' }
+        ],
+        tags: ['estetica-canina', 'spa', 'accesorios'],
+        priceRange: '$$'
     },
     {
         id: '3',
-        name: 'Clínica Veterinaria Xoxo',
-        slug: 'clinica-veterinaria-xoxo',
-        municipio: 'xoxocotlan',
-        categoria: 'veterinarias',
-        description: 'Servicio veterinario integral en el corazón de Xoxocotlán. Vacunas, desparasitación y consultas generales.',
-        address: 'Calle Porfirio Díaz 12, Santa Cruz Xoxocotlán, Oax.',
-        telephone: '+529515551234',
-        image: 'https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?auto=format&fit=crop&q=80&w=800',
-        rating: 4.2,
-        priceRange: '$',
-        tags: ['vacaunas', 'desparasitación', 'consultas'],
-        reviews: []
+        name: 'Café de las Mascotas',
+        slug: 'cafe-de-las-mascotas',
+        municipio: 'oaxaca-centro',
+        categoria: 'pet-friendly',
+        description: 'El primer café 100% pet-friendly en Oaxaca. Menú especial para humanos y snacks naturales para mascotas.',
+        address: 'Reforma 789, Jalatlaco, Oaxaca',
+        telephone: '+52 951 456 7890',
+        image: '/images/businesses/pet-friendly-cafe.jpg',
+        rating: 4.7,
+        reviews: [
+            { id: 'r4', user: 'Lucía R.', rating: 5, comment: 'Lugar encantador, mi perro ama sus galletas de avena.', date: '2024-01-08' }
+        ],
+        tags: ['restaurante', 'desayunos', 'wifi', 'snacks-mascotas'],
+        priceRange: '$$'
     }
+];
+
+export const municipios: Municipio[] = [
+    { id: '1', name: 'Oaxaca de Juárez', slug: 'oaxaca-centro' },
+    { id: '2', name: 'Santa Cruz Xoxocotlán', slug: 'xoxocotlan' },
+    { id: '3', name: 'Santa Lucía del Camino', slug: 'santa-lucia' },
+    { id: '4', name: 'San Sebastián Tutla', slug: 'san-sebastian' },
+    { id: '5', name: 'Santa María del Tule', slug: 'el-tule' }
 ];
