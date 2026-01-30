@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { municipios } from '@/data/db';
+import { municipios, businesses } from '@/data/db';
 import { categories } from '@/data/categories';
 import * as LucideIcons from 'lucide-react';
 import { LucideProps } from 'lucide-react';
@@ -12,6 +12,8 @@ const IconWrapper = ({ name, ...props }: { name: string } & LucideProps) => {
 };
 
 export default function Home() {
+  const featuredBusinesses = businesses.slice(0, 3);
+
   return (
     <div className="flex flex-col gap-20 pb-20">
       {/* Hero Section */}
@@ -116,19 +118,25 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
             <div>
-              <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter">
+              <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter text-balance">
                 ¡Haz que tu negocio sea el lugar favorito!
               </h2>
               <p className="text-xl text-orange-50 mb-12 font-medium leading-relaxed">
                 Únete a la mayor red de servicios para mascotas en Oaxaca. Conecta con miles de dueños que buscan lo mejor para sus peluditos.
               </p>
               <div className="flex flex-wrap gap-4">
-                <button className="bg-white text-orange-600 px-10 py-5 rounded-2xl font-black hover:bg-orange-50 transition-all shadow-xl shadow-orange-700/20">
+                <Link
+                  href="/sumar-negocio"
+                  className="bg-white text-orange-600 px-10 py-5 rounded-2xl font-black hover:bg-orange-50 transition-all shadow-xl shadow-orange-700/20 text-center"
+                >
                   Registrar mi Negocio
-                </button>
-                <button className="bg-orange-600 text-white border border-orange-400 px-10 py-5 rounded-2xl font-black hover:bg-orange-700 transition-all">
+                </Link>
+                <Link
+                  href="/contacto"
+                  className="bg-orange-600 text-white border border-orange-400 px-10 py-5 rounded-2xl font-black hover:bg-orange-700 transition-all text-center"
+                >
                   Saber más
-                </button>
+                </Link>
               </div>
             </div>
 
@@ -139,7 +147,7 @@ export default function Home() {
                 { label: 'Visitas Mes', value: '10k+' },
                 { label: 'Reseñas', value: '2k+' },
               ].map((stat, i) => (
-                <div key={i} className="bg-white/10 border border-white/20 p-8 rounded-[2rem] backdrop-blur-lg">
+                <div key={i} className="bg-white/10 border border-white/20 p-8 rounded-[2rem] backdrop-blur-lg text-center">
                   <div className="text-4xl font-black text-white mb-2 tracking-tighter">{stat.value}</div>
                   <div className="text-sm font-bold text-orange-100 uppercase tracking-widest">{stat.label}</div>
                 </div>
@@ -149,36 +157,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Municipality */}
+      {/* Featured Businesses Section (Destacados) */}
       <section className="container mx-auto px-4 pb-20">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12">
           <div className="max-w-xl">
-            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter">Explora por Municipio</h2>
-            <p className="text-xl text-slate-500 font-medium">Todo Oaxaca unido por el amor a las mascotas.</p>
+            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter italic">Proveedores <span className="text-orange-500">Destacados</span></h2>
+            <p className="text-xl text-slate-500 font-medium">Los mejores servicios recomendados por nuestra comunidad.</p>
           </div>
-          <Link href="/explorar" className="text-orange-600 font-black flex items-center gap-2 hover:underline">
-            Ver todos los municipios <LucideIcons.ChevronRight size={20} />
+          <Link href="/oaxaca-centro/veterinarias" className="text-orange-600 font-black flex items-center gap-2 hover:underline uppercase tracking-widest text-xs">
+            Ver Directorio Completo <LucideIcons.ChevronRight size={18} />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {municipios.slice(0, 3).map((muni, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {featuredBusinesses.map((business) => (
             <Link
-              key={muni.id}
-              href={`/${muni.slug}`}
-              className="group relative h-[400px] rounded-[2.5rem] overflow-hidden shadow-xl"
+              key={business.id}
+              href={`/${business.municipio}/${business.categoria}/${business.slug}`}
+              className="group bg-white rounded-[2.5rem] overflow-hidden border border-orange-50 shadow-xl hover:shadow-2xl hover:shadow-orange-200/30 transition-all duration-500"
             >
-              <div className="absolute inset-0 bg-gradient-to-t from-orange-950/80 via-transparent to-transparent z-10 transition-opacity group-hover:opacity-90"></div>
-              <div className="absolute bottom-10 left-10 z-20">
-                <div className="bg-orange-500 text-white text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-4 inline-block">
-                  Oaxaca
+              <div className="relative h-64">
+                <Image
+                  src={business.image}
+                  alt={business.name}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute top-4 right-4 h-8 w-8 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-orange-500 shadow-lg">
+                  <LucideIcons.Star size={16} fill="currentColor" />
                 </div>
-                <h3 className="text-3xl font-black text-white mb-2 tracking-tight">{muni.name}</h3>
-                <p className="text-white/80 font-bold group-hover:text-white transition-colors flex items-center gap-2">
-                  Ver servicios <LucideIcons.ArrowRight size={16} />
-                </p>
               </div>
-              <div className="w-full h-full bg-slate-200 scale-105 group-hover:scale-100 transition-transform duration-700"></div>
+              <div className="p-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="bg-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-lg">
+                    Premium
+                  </div>
+                  <span className="text-xs font-bold text-slate-400 truncate">{business.address.split(',')[0]}</span>
+                </div>
+                <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight group-hover:text-orange-600 transition-colors uppercase leading-tight">{business.name}</h3>
+                <p className="text-slate-500 text-sm line-clamp-2 font-medium mb-6">{business.description}</p>
+                <div className="flex items-center justify-between pt-6 border-t border-slate-50">
+                  <span className="text-orange-600 font-black text-xs uppercase tracking-widest flex items-center gap-2">
+                    Ver más <LucideIcons.ArrowRight size={14} />
+                  </span>
+                  <div className="flex items-center gap-1 text-yellow-500 font-black text-sm">
+                    {business.rating}
+                  </div>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
