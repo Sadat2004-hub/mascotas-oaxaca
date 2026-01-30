@@ -26,18 +26,18 @@ export default function Home() {
             className="object-cover brightness-90"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-orange-600/20 via-transparent to-white/100"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-white/100"></div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 bg-orange-500/10 backdrop-blur-md px-4 py-2 rounded-full border border-orange-500/20 text-orange-700 mb-8 animate-fade-in shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white mb-8 animate-fade-in shadow-sm">
             <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
             <span className="text-sm font-bold uppercase tracking-wider">Comunidad Pet-Friendly Oaxaca</span>
           </div>
-          <h1 className="text-5xl md:text-8xl font-black text-slate-900 mb-8 text-balance tracking-tighter leading-[0.9]">
-            ¡El mejor cuidado para tu <span className="text-orange-500 italic">mejor amigo!</span>
+          <h1 className="text-5xl md:text-8xl font-black text-white mb-8 text-balance tracking-tighter leading-[0.9] drop-shadow-2xl">
+            ¡El mejor cuidado para tu <span className="text-orange-400 italic">mejor amigo!</span>
           </h1>
-          <p className="text-xl md:text-2xl text-slate-600 mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/95 mb-12 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-lg">
             Encuentra veterinarias, estéticas y lugares increíbles para disfrutar con tu mascota en todo Oaxaca.
           </p>
 
