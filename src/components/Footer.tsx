@@ -4,6 +4,7 @@ import { categories } from '@/data/categories';
 
 export default function Footer() {
     const currentYear = new Date().getFullYear();
+    const mainWhatsApp = "526563230397";
 
     return (
         <footer className="bg-slate-50 border-t border-orange-100 pt-24 pb-12 overflow-hidden relative">
@@ -60,10 +61,10 @@ export default function Footer() {
                                 </Link>
                             </li>
                             <li>
-                                <a href="https://wa.me/526563230397" target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-orange-600 font-bold text-sm transition-colors flex items-center gap-2 group">
+                                <Link href="/sumar-negocio" className="text-slate-600 hover:text-orange-600 font-bold text-sm transition-colors flex items-center gap-2 group">
                                     <span className="w-1 h-1 bg-orange-200 rounded-full group-hover:scale-150 transition-all"></span>
                                     Sumar mi Negocio
-                                </a>
+                                </Link>
                             </li>
                             <li>
                                 <Link href="/privacidad" className="text-slate-600 hover:text-orange-600 font-bold text-sm transition-colors flex items-center gap-2 group">
@@ -81,21 +82,19 @@ export default function Footer() {
                     </div>
 
                     <div>
-                        <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-8">Ayuda 24/7</h3>
-                        <div className="bg-white p-6 rounded-3xl border border-orange-100 shadow-xl shadow-orange-100/50">
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Escríbenos por WhatsApp</p>
+                        <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-8">Contacto Oficial</h3>
+                        <div className="bg-white p-8 rounded-[2.5rem] border border-orange-100 shadow-xl shadow-orange-100/50">
+                            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6 text-center">Escríbenos por WhatsApp</p>
                             <a
-                                href="https://wa.me/526563230397"
+                                href={`https://wa.me/${mainWhatsApp}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="flex items-center gap-3 text-slate-900 font-black hover:text-orange-600 transition-colors"
+                                className="flex items-center justify-center gap-3 w-full py-4 bg-emerald-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-emerald-600 hover:scale-105 active:scale-95 transition-all shadow-lg shadow-emerald-200"
                             >
-                                <div className="w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white shadow-lg">
-                                    <LucideIcons.MessageCircle size={20} />
-                                </div>
-                                <span>951 199 95 53</span>
+                                <LucideIcons.MessageCircle size={20} />
+                                WhatsApp Oficial
                             </a>
-                            <p className="text-[10px] text-slate-400 mt-4 leading-tight italic">Resolviremos tus dudas sobre cómo anunciar tu negocio o reportar información.</p>
+                            <p className="text-[10px] text-slate-400 mt-6 leading-tight italic text-center">Atención directa para dudas y aclaraciones.</p>
                         </div>
                     </div>
                 </div>
