@@ -203,8 +203,7 @@ export default function HomeClient({ featuredBusinesses, allBusinesses }: Props)
                                 name: 'Hospital Veterinario Reforma',
                                 category: 'Salud y Bienestar',
                                 description: 'Líderes en medicina veterinaria con atención de urgencias 24/7, cirugía especializada y diagnóstico avanzado en el corazón de Oaxaca.',
-                                image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800',
-                                tag: 'Socio Platino',
+                                image: 'https://cdn.sanity.io/images/74h088u5/production/c722030058e8135d7199905a7ad736849971358b-1225x1225.jpg',
                                 icon: 'HeartPulse',
                                 link: '/hospital-veterinario-reforma'
                             },
@@ -214,7 +213,6 @@ export default function HomeClient({ featuredBusinesses, allBusinesses }: Props)
                                 category: 'Bienestar y Estética',
                                 description: 'El primer spa de relajación profunda para mascotas. Cortes de alta peluquería y tratamientos dermatológicos.',
                                 image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800',
-                                tag: 'Socio Platino',
                                 icon: 'Sparkles',
                                 link: '#'
                             },
@@ -224,7 +222,6 @@ export default function HomeClient({ featuredBusinesses, allBusinesses }: Props)
                                 category: 'Salud Avanzada',
                                 description: 'Tecnología médica de punta para diagnósticos precisos. Laboratorio clínico y especialidades de vanguardia.',
                                 image: 'https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&q=80&w=800',
-                                tag: 'Socio Oro',
                                 icon: 'Activity',
                                 link: '#'
                             }
@@ -240,12 +237,6 @@ export default function HomeClient({ featuredBusinesses, allBusinesses }: Props)
                                         fill
                                         className="object-cover group-hover:scale-110 transition-transform duration-700"
                                     />
-                                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl">
-                                        <div className="flex items-center gap-2">
-                                            <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
-                                            <span className="text-[10px] font-black text-slate-800 uppercase tracking-widest">{sponsor.tag}</span>
-                                        </div>
-                                    </div>
                                 </div>
 
                                 <div className="px-4 pb-6 flex-1 flex flex-col">
