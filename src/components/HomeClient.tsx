@@ -182,12 +182,13 @@ export default function HomeClient({ featuredBusinesses }: Props) {
                         {[
                             {
                                 id: 'p1',
-                                name: 'Royal Pet Gourmet',
-                                category: 'Alimentación Premium',
-                                description: 'Nutrición orgánica y dietas especializadas para razas exigentes. Calidad de exportación ahora en Oaxaca.',
-                                image: 'https://images.unsplash.com/photo-1589924691106-bc1b3075d6df?auto=format&fit=crop&q=80&w=800',
-                                tag: 'Socio Oro',
-                                icon: 'Bone'
+                                name: 'Hospital Veterinario Reforma',
+                                category: 'Salud y Bienestar',
+                                description: 'Líderes en medicina veterinaria con atención de urgencias 24/7, cirugía especializada y diagnóstico avanzado en el corazón de Oaxaca.',
+                                image: 'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=800',
+                                tag: 'Socio Platino',
+                                icon: 'HeartPulse',
+                                link: '/hospital-veterinario-reforma'
                             },
                             {
                                 id: 'p2',
@@ -196,7 +197,8 @@ export default function HomeClient({ featuredBusinesses }: Props) {
                                 description: 'El primer spa de relajación profunda para mascotas. Cortes de alta peluquería y tratamientos dermatológicos.',
                                 image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800',
                                 tag: 'Socio Platino',
-                                icon: 'Sparkles'
+                                icon: 'Sparkles',
+                                link: '#'
                             },
                             {
                                 id: 'p3',
@@ -205,9 +207,10 @@ export default function HomeClient({ featuredBusinesses }: Props) {
                                 description: 'Tecnología médica de punta para diagnósticos precisos. Laboratorio clínico y especialidades de vanguardia.',
                                 image: 'https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&q=80&w=800',
                                 tag: 'Socio Oro',
-                                icon: 'Activity'
+                                icon: 'Activity',
+                                link: '#'
                             }
-                        ].map((sponsor) => (
+                        ].map((sponsor: any) => (
                             <div
                                 key={sponsor.id}
                                 className="group bg-white rounded-[3rem] p-4 border border-slate-100 shadow-xl hover:shadow-2xl hover:shadow-orange-200/40 transition-all duration-500 flex flex-col h-full"
@@ -244,9 +247,9 @@ export default function HomeClient({ featuredBusinesses }: Props) {
                                     </p>
 
                                     <div className="mt-auto">
-                                        <button className="w-full py-4 bg-slate-50 text-slate-900 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all border border-slate-100 group-hover:border-orange-200 shadow-sm flex items-center justify-center gap-2">
-                                            Visitar Sitio Oficial <LucideIcons.ExternalLink size={14} />
-                                        </button>
+                                        <Link href={sponsor.link} className="w-full py-4 bg-slate-50 text-slate-900 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all border border-slate-100 group-hover:border-orange-200 shadow-sm flex items-center justify-center gap-2">
+                                            Visitar Perfil <LucideIcons.ExternalLink size={14} />
+                                        </Link>
                                     </div>
                                 </div>
                             </div>
