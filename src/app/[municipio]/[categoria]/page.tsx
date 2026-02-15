@@ -49,15 +49,6 @@ export default async function CategoryPage({ params }: Props) {
     return (
         <div className="container mx-auto px-4 py-12 md:py-20">
             <div className="mb-12">
-                {/* Breadcrumbs más sutiles */}
-                <nav className="flex items-center text-[10px] text-slate-400 mb-6 gap-2 font-bold uppercase tracking-[0.2em]">
-                    <Link href="/" className="hover:text-orange-500 transition-colors">Inicio</Link>
-                    <LucideIcons.ChevronRight size={10} />
-                    <Link href={`/${municipio}`} className="hover:text-orange-500 transition-colors">{muni.name}</Link>
-                    <LucideIcons.ChevronRight size={10} />
-                    <span className="text-slate-300">{categoryName}</span>
-                </nav>
-
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="max-w-4xl text-center md:text-left mx-auto md:mx-0">
                         <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter uppercase italic leading-none">

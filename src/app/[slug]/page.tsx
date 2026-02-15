@@ -79,18 +79,6 @@ export default async function DynamicPage({ params }: Props) {
 
                 {/* Header Section */}
                 <div className="mb-10 text-center md:text-left">
-                    <nav className="flex items-center justify-center md:justify-start text-[10px] text-slate-400 mb-6 gap-2 font-bold uppercase tracking-[0.2em] overflow-x-auto whitespace-nowrap no-scrollbar">
-                        <Link href="/" className="hover:text-orange-500 transition-colors">Inicio</Link>
-                        {muni && (
-                            <>
-                                <LucideIcons.ChevronRight size={10} />
-                                <Link href={`/${muni.slug}`} className="hover:text-orange-500 transition-colors uppercase">{muni.name}</Link>
-                            </>
-                        )}
-                        <LucideIcons.ChevronRight size={10} />
-                        <span className="text-slate-300 uppercase">{business.name}</span>
-                    </nav>
-
                     <h1 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none mb-6 uppercase italic">
                         {business.name}
                     </h1>
@@ -252,12 +240,6 @@ export default async function DynamicPage({ params }: Props) {
         return (
             <div className="container mx-auto px-4 py-12 md:py-20">
                 <div className="mb-16 md:mb-20">
-                    <nav className="flex items-center text-[10px] text-slate-400 mb-6 gap-2 font-bold uppercase tracking-[0.2em]">
-                        <Link href="/" className="hover:text-orange-500 transition-colors">Inicio</Link>
-                        <LucideIcons.ChevronRight size={10} />
-                        <span className="text-slate-300">{muni.name}</span>
-                    </nav>
-
                     <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-none uppercase italic">
                         Explorar <span className="text-orange-500">Servicios</span>
                     </h1>
