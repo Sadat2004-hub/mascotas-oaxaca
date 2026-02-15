@@ -21,10 +21,10 @@ export default function Header() {
 
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center gap-10">
-                    <Link href="/" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Inicio</Link>
                     <Link href="/oaxaca/veterinarias" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Veterinarias</Link>
-                    <Link href="/oaxaca/esteticas-grooming" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Grooming</Link>
-                    <Link href="/oaxaca/pet-friendly" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Pet Friendly</Link>
+                    <Link href="/oaxaca/esteticas-grooming" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Estéticas</Link>
+                    <Link href="/oaxaca/tiendas-accesorios" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Accesorios y Alimento</Link>
+                    <Link href="/oaxaca/adopciones" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Adopciones</Link>
 
                     <div className="h-6 w-[1px] bg-slate-100"></div>
 
@@ -50,13 +50,6 @@ export default function Header() {
                 <div className="lg:hidden absolute top-20 left-0 w-full bg-white border-b border-orange-100 shadow-2xl animate-fade-in">
                     <nav className="flex flex-col p-6 gap-6">
                         <Link
-                            href="/"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
-                        >
-                            Inicio
-                        </Link>
-                        <Link
                             href="/oaxaca/veterinarias"
                             onClick={() => setIsMenuOpen(false)}
                             className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
@@ -68,14 +61,21 @@ export default function Header() {
                             onClick={() => setIsMenuOpen(false)}
                             className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
                         >
-                            Grooming
+                            Estéticas
                         </Link>
                         <Link
-                            href="/oaxaca/pet-friendly"
+                            href="/oaxaca/tiendas-accesorios"
                             onClick={() => setIsMenuOpen(false)}
                             className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
                         >
-                            Pet Friendly
+                            Accesorios y Alimento
+                        </Link>
+                        <Link
+                            href="/oaxaca/adopciones"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
+                        >
+                            Adopciones
                         </Link>
                         <Link
                             href="/sumar-negocio"
