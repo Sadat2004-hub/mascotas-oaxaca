@@ -133,103 +133,6 @@ export default function HomeClient({ featuredBusinesses }: Props) {
                 </div>
             </section>
 
-            {/* Featured Businesses Section */}
-            <section className="container mx-auto px-4 py-12">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
-                    <div className="max-w-2xl">
-                        <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">
-                            <LucideIcons.Star size={14} /> Recomendados
-                        </div>
-                        <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase italic leading-none">
-                            Negocios <span className="text-orange-500">Destacados</span>
-                        </h2>
-                    </div>
-                    <Link href={`/${selectedCity}`} className="text-orange-600 font-black text-xs uppercase tracking-widest hover:text-orange-700 transition-colors flex items-center gap-2 border-b-2 border-orange-100 pb-2">
-                        Ver todo el directorio <LucideIcons.ArrowRight size={16} />
-                    </Link>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {featuredBusinesses.length > 0 ? (
-                        featuredBusinesses.map((business: any) => (
-                            <Link
-                                key={business.id}
-                                href={`/${business.slug}`}
-                                className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-2xl hover:shadow-orange-200/30 transition-all duration-500"
-                            >
-                                <div className="relative h-64 overflow-hidden">
-                                    <Image
-                                        src={business.image || '/images/placeholder-business.jpg'}
-                                        alt={business.name}
-                                        fill
-                                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                                    />
-                                    <div className="absolute top-6 left-6">
-                                        <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl text-[10px] font-black text-orange-600 shadow-xl uppercase tracking-widest">
-                                            {business.priceRange || '$$'}
-                                        </div>
-                                    </div>
-                                    <div className="absolute bottom-4 left-4">
-                                        <div className="flex items-center gap-1.5 bg-yellow-400 px-3 py-1 rounded-full w-fit">
-                                            <LucideIcons.Star size={12} fill="currentColor" stroke="none" />
-                                            <span className="text-xs font-black text-yellow-950">{business.rating || '4.5'}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="p-8">
-                                    <h3 className="text-2xl font-black text-slate-900 group-hover:text-orange-600 transition-colors uppercase tracking-tighter mb-4 leading-none">
-                                        {business.name}
-                                    </h3>
-                                    <p className="text-slate-500 text-sm line-clamp-2 leading-relaxed font-medium mb-6">
-                                        {business.description}
-                                    </p>
-                                    <div className="flex items-center gap-2 text-orange-600 font-bold text-[10px] uppercase tracking-widest">
-                                        Ver Perfil Completo <LucideIcons.ArrowRight size={14} />
-                                    </div>
-                                </div>
-                            </Link>
-                        ))
-                    ) : (
-                        <div className="col-span-full py-12 text-center text-slate-400 font-medium font-black uppercase tracking-widest text-xs">
-                            Espera un momento, estamos preparando lo mejor para ti...
-                        </div>
-                    )}
-                </div>
-            </section>
-
-            {/* Join Section */}
-            <section className="container mx-auto px-4 py-12">
-                <div className="bg-orange-500 rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-orange-200">
-                    <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
-                        <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-[120px]"></div>
-                        <div className="absolute bottom-10 right-10 w-64 h-64 bg-amber-200 rounded-full blur-[120px]"></div>
-                    </div>
-
-                    <div className="flex flex-col items-center text-center relative z-10 max-w-4xl mx-auto">
-                        <h2 className="text-4xl md:text-7xl font-black mb-10 leading-[0.9] tracking-tighter text-balance uppercase">
-                            ¡Haz que tu negocio sea el lugar favorito!
-                        </h2>
-                        <p className="text-xl md:text-2xl text-orange-50 mb-12 font-medium leading-relaxed max-w-2xl">
-                            Únete a la mayor red de servicios para mascotas en Oaxaca. Conecta con miles de dueños que buscan lo mejor para sus peluditos.
-                        </p>
-                        <div className="flex flex-wrap justify-center gap-6">
-                            <Link
-                                href="/sumar-negocio"
-                                className="bg-white text-orange-600 px-12 py-6 rounded-[2rem] font-black hover:bg-orange-50 transition-all shadow-xl shadow-orange-700/20 text-center uppercase tracking-widest text-sm"
-                            >
-                                Registrar mi Negocio
-                            </Link>
-                            <Link
-                                href="/contacto"
-                                className="bg-orange-600 text-white border-2 border-orange-400 px-12 py-6 rounded-[2rem] font-black hover:bg-orange-700 transition-all text-center uppercase tracking-widest text-sm"
-                            >
-                                Saber más
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Sponsors Section */}
             <section className="container mx-auto px-4 pb-20">
                 <div className="bg-slate-50 rounded-[4rem] p-8 md:p-16 border border-slate-100 shadow-inner relative overflow-hidden">
@@ -324,6 +227,39 @@ export default function HomeClient({ featuredBusinesses }: Props) {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Join Section */}
+            <section className="container mx-auto px-4 py-12">
+                <div className="bg-orange-500 rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-orange-200">
+                    <div className="absolute top-0 left-0 w-full h-full opacity-20 pointer-events-none">
+                        <div className="absolute top-10 left-10 w-64 h-64 bg-white rounded-full blur-[120px]"></div>
+                        <div className="absolute bottom-10 right-10 w-64 h-64 bg-amber-200 rounded-full blur-[120px]"></div>
+                    </div>
+
+                    <div className="flex flex-col items-center text-center relative z-10 max-w-4xl mx-auto">
+                        <h2 className="text-4xl md:text-7xl font-black mb-10 leading-[0.9] tracking-tighter text-balance uppercase">
+                            ¡Haz que tu negocio sea el lugar favorito!
+                        </h2>
+                        <p className="text-xl md:text-2xl text-orange-50 mb-12 font-medium leading-relaxed max-w-2xl">
+                            Únete a la mayor red de servicios para mascotas en Oaxaca. Conecta con miles de dueños que buscan lo mejor para sus peluditos.
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-6">
+                            <Link
+                                href="/sumar-negocio"
+                                className="bg-white text-orange-600 px-12 py-6 rounded-[2rem] font-black hover:bg-orange-50 transition-all shadow-xl shadow-orange-700/20 text-center uppercase tracking-widest text-sm"
+                            >
+                                Registrar mi Negocio
+                            </Link>
+                            <Link
+                                href="/contacto"
+                                className="bg-orange-600 text-white border-2 border-orange-400 px-12 py-6 rounded-[2rem] font-black hover:bg-orange-700 transition-all text-center uppercase tracking-widest text-sm"
+                            >
+                                Saber más
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </section>
