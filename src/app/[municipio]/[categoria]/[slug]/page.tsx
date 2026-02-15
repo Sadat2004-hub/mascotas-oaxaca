@@ -62,65 +62,67 @@ export default async function BusinessPage({ params }: Props) {
     const catName = catResult.data.title;
 
     return (
-        <div className="container mx-auto px-4 py-8 md:py-20 relative">
+        <div className="container mx-auto px-4 py-8 md:py-12 relative overflow-hidden">
             <StructuredData business={business} municipio={muni.name} categoria={catName} />
 
-            {/* Breadcrumbs más sutiles */}
-            <nav className="flex items-center text-[10px] text-slate-400 mb-10 md:mb-12 gap-2 font-bold uppercase tracking-[0.2em] overflow-x-auto whitespace-nowrap pb-4 no-scrollbar">
-                <Link href="/" className="hover:text-orange-500 transition-colors">Inicio</Link>
-                <LucideIcons.ChevronRight size={10} />
-                <Link href={`/${municipio}`} className="hover:text-orange-500 transition-colors uppercase">{muni.name}</Link>
-                <LucideIcons.ChevronRight size={10} />
-                <Link href={`/${municipio}/${categoria}`} className="hover:text-orange-500 transition-colors uppercase">{catName}</Link>
-                <LucideIcons.ChevronRight size={10} />
-                <span className="text-slate-300 uppercase">{business.name}</span>
-            </nav>
+            {/* Header Section: Title and Breadcrumbs at the top */}
+            <div className="mb-10 text-center md:text-left">
+                <nav className="flex items-center justify-center md:justify-start text-[10px] text-slate-400 mb-6 gap-2 font-bold uppercase tracking-[0.2em] overflow-x-auto whitespace-nowrap no-scrollbar">
+                    <Link href="/" className="hover:text-orange-500 transition-colors">Inicio</Link>
+                    <LucideIcons.ChevronRight size={10} />
+                    <Link href={`/${municipio}`} className="hover:text-orange-500 transition-colors uppercase">{muni.name}</Link>
+                    <LucideIcons.ChevronRight size={10} />
+                    <Link href={`/${municipio}/${categoria}`} className="hover:text-orange-500 transition-colors uppercase">{catName}</Link>
+                    <LucideIcons.ChevronRight size={10} />
+                    <span className="text-slate-300 uppercase">{business.name}</span>
+                </nav>
+
+                <h1 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tighter leading-none mb-6 uppercase italic">
+                    {business.name}
+                </h1>
+
+                <div className="flex flex-wrap items-center justify-center md:justify-start gap-4">
+                    <div className="flex items-center gap-2 bg-yellow-400 px-4 py-2 rounded-2xl shadow-lg shadow-yellow-200/50">
+                        <LucideIcons.Star size={16} fill="currentColor" stroke="none" />
+                        <span className="text-sm font-black text-yellow-950">{business.rating || '4.5'}</span>
+                    </div>
+                    <div className="bg-orange-500 text-white px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-orange-200/50">
+                        {catName}
+                    </div>
+                </div>
+            </div>
+
+            {/* Gallery Section: Horizontal Slider */}
+            <div className="w-full mb-16">
+                <div className="flex gap-4 overflow-x-auto pb-8 no-scrollbar snap-x snap-mandatory">
+                    {[business.image, ...(business.gallery || [])].filter(Boolean).map((img, index) => (
+                        <div key={index} className="relative h-[350px] md:h-[500px] min-w-[300px] md:min-w-[700px] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl snap-center border-4 border-white">
+                            <Image
+                                src={img || '/images/placeholder-business.jpg'}
+                                alt={`${business.name} - ${index}`}
+                                fill
+                                className="object-cover"
+                                priority={index === 0}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-16">
                 {/* Main Content */}
                 <div className="lg:col-span-2 space-y-12">
-                    <div className="relative h-[400px] md:h-[600px] w-full rounded-[3rem] md:rounded-[4rem] overflow-hidden shadow-2xl">
-                        <Image
-                            src={business.image || '/images/placeholder-business.jpg'}
-                            alt={business.name}
-                            fill
-                            className="object-cover"
-                            priority
-                        />
-                        <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent">
-                            <div className="flex flex-wrap items-center gap-3 mb-6">
-                                <div className="bg-orange-500 text-white px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl">
-                                    {catName}
-                                </div>
-                                <div className="bg-white/10 backdrop-blur-md text-white border border-white/20 px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl flex items-center gap-2">
-                                    <LucideIcons.MapPin size={14} className="text-orange-400" />
-                                    {muni.name}
-                                </div>
-                            </div>
-                            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none mb-6 uppercase italic">
-                                {business.name}
-                            </h1>
-                            <div className="flex flex-wrap items-center gap-6">
-                                <div className="flex items-center gap-2 bg-yellow-400 px-4 py-2 rounded-2xl">
-                                    <LucideIcons.Star size={16} fill="currentColor" stroke="none" />
-                                    <span className="text-sm font-black text-yellow-950">{business.rating || '4.5'}</span>
-                                </div>
-                                <span className="text-white/60 font-bold uppercase tracking-widest text-[10px]">{business.reviews?.length || 0} Valoraciones</span>
-                                <span className="text-white/20 hidden md:block">|</span>
-                                <span className="text-white font-black text-2xl tracking-tighter">{business.priceRange || '$$'}</span>
-                            </div>
-                        </div>
-                    </div>
-
+                    {/* Nosotros Section */}
                     <div className="bg-white p-8 md:p-12 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-100/50">
                         <h2 className="text-3xl font-black text-slate-900 mb-8 tracking-tighter flex items-center gap-3 uppercase italic">
-                            <LucideIcons.FileText className="text-orange-500" /> Especialidades
+                            <LucideIcons.Heart className="text-orange-500" /> Nosotros
                         </h2>
                         <div className="prose prose-lg prose-orange max-w-none text-slate-500 leading-relaxed font-medium">
                             {business.description}
                         </div>
                     </div>
 
+                    {/* Servicios Section */}
                     <div className="bg-white p-8 md:p-12 rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-100/50">
                         <h2 className="text-3xl font-black text-slate-900 mb-8 tracking-tighter flex items-center gap-3 uppercase italic">
                             <LucideIcons.CheckCircle2 className="text-orange-500" /> Servicios
@@ -136,6 +138,7 @@ export default async function BusinessPage({ params }: Props) {
 
                     <ReviewForm businessId={business.id} />
 
+                    {/* Reviews */}
                     <div className="space-y-8 pt-12 border-t border-slate-100">
                         <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase italic">Reseñas de la comunidad</h2>
                         {business.reviews?.length > 0 ? (
@@ -194,12 +197,26 @@ export default async function BusinessPage({ params }: Props) {
                                     </div>
                                 </div>
 
+                                {/* Mapa real si existe la URL */}
                                 <div className="relative group">
-                                    <div className="w-full h-48 bg-slate-50 rounded-[2.5rem] flex flex-col items-center justify-center text-slate-300 border-2 border-dashed border-slate-200 overflow-hidden group-hover:bg-orange-50 group-hover:border-orange-200 transition-all">
-                                        <LucideIcons.Map size={32} className="mb-4 opacity-30" />
-                                        <p className="text-[10px] font-black uppercase tracking-[0.2em]">Mapa Interactivo</p>
-                                        <p className="text-[9px] mt-1 font-bold">Próximamente</p>
-                                    </div>
+                                    {business.mapEmbedUrl ? (
+                                        <div className="w-full h-64 rounded-[2.5rem] overflow-hidden border-4 border-slate-50 shadow-inner">
+                                            <iframe
+                                                src={business.mapEmbedUrl}
+                                                width="100%"
+                                                height="100%"
+                                                style={{ border: 0 }}
+                                                allowFullScreen
+                                                loading="lazy"
+                                                referrerPolicy="no-referrer-when-downgrade"
+                                            ></iframe>
+                                        </div>
+                                    ) : (
+                                        <div className="w-full h-48 bg-slate-50 rounded-[2.5rem] flex flex-col items-center justify-center text-slate-300 border-2 border-dashed border-slate-200 overflow-hidden group-hover:bg-orange-50 group-hover:border-orange-200 transition-all">
+                                            <LucideIcons.Map size={32} className="mb-4 opacity-30" />
+                                            <p className="text-[10px] font-black uppercase tracking-[0.2em]">Mapa no disponible</p>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <a
@@ -211,11 +228,6 @@ export default async function BusinessPage({ params }: Props) {
                                     <LucideIcons.MessageCircle size={20} /> Enviar Mensaje
                                 </a>
                             </div>
-                        </div>
-
-                        <div className="bg-slate-900 p-8 rounded-[3rem] text-white shadow-xl shadow-slate-950/20">
-                            <span className="text-[10px] font-black uppercase tracking-widest text-orange-400 bg-white/5 px-3 py-1 rounded-full mb-4 inline-block">Pro-Tip</span>
-                            <p className="text-xs font-medium leading-relaxed italic text-slate-400 tracking-tight">¿Sabías que {business.name} ofrece {business.tags?.[0] || 'servicios premium'}? Menciona que lo viste en <strong>Mascotas Oaxaca</strong> para beneficios exclusivos.</p>
                         </div>
                     </div>
                 </div>
