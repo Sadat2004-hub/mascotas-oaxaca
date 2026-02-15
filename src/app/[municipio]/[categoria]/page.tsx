@@ -97,29 +97,28 @@ export default async function CategoryPage({ params }: Props) {
                             </div>
                         </div>
                         <div className="p-8 md:p-10">
-                            <h3 className="text-2xl font-black text-slate-900 group-hover:text-orange-600 transition-colors uppercase tracking-tighter mb-4 leading-none">
+                            <h3 className="text-2xl font-black text-slate-900 group-hover:text-orange-600 transition-colors uppercase tracking-tighter mb-2 leading-none">
                                 {business.name}
                             </h3>
-                            <p className="text-slate-500 text-sm line-clamp-2 mb-8 leading-relaxed font-medium">
-                                {business.description}
-                            </p>
 
-                            <div className="flex flex-wrap gap-2 mb-8">
-                                {business.tags?.slice(0, 3).map((tag: any) => (
-                                    <span key={tag} className="text-[10px] uppercase font-bold tracking-widest text-orange-400 bg-orange-50 px-3 py-1.5 rounded-xl border border-orange-100">
-                                        #{tag}
-                                    </span>
-                                ))}
-                            </div>
-
-                            <div className="flex items-center justify-between pt-8 border-t border-slate-50">
-                                <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest flex items-center gap-2">
-                                    Ver Detalles <LucideIcons.ArrowRight size={14} />
-                                </span>
-                                <span className="text-[10px] font-bold text-slate-400 max-w-[150px] truncate uppercase tracking-widest">
+                            {/* Dirección simplificada debajo del nombre */}
+                            <div className="flex items-center gap-2 text-slate-400 mb-4">
+                                <LucideIcons.MapPin size={12} className="text-orange-500" />
+                                <span className="text-[10px] font-bold uppercase tracking-widest">
                                     {business.address?.split(',')[0] || muni.name}
                                 </span>
                             </div>
+
+                            {/* 'Ver Detalles' justo debajo de la dirección */}
+                            <div className="mb-6">
+                                <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest flex items-center gap-2 bg-orange-50 w-fit px-4 py-2 rounded-xl group-hover:bg-orange-500 group-hover:text-white transition-all duration-300">
+                                    Ver Detalles <LucideIcons.ArrowRight size={14} />
+                                </span>
+                            </div>
+
+                            <p className="text-slate-500 text-sm line-clamp-2 leading-relaxed font-medium opacity-80">
+                                {business.description}
+                            </p>
                         </div>
                     </Link>
                 ))}
