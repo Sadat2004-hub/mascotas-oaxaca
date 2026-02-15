@@ -8,7 +8,7 @@ import * as LucideIcons from 'lucide-react';
 
 interface Props {
     params: Promise<{
-        ciudad: string;
+        slug: string;
         categoria: string;
     }>;
 }
@@ -16,8 +16,10 @@ interface Props {
 export const revalidate = 60; // Revalidar cada 60 segundos
 
 export default async function CategoryPage({ params }: Props) {
-    const { ciudad, categoria } = await params;
-    const city = ciudades.find((c) => c.slug === ciudad);
+    const { slug, categoria } = await params;
+
+    // Aquí 'slug' actúa como la ciudad
+    const city = ciudades.find((c) => c.slug === slug);
     const result = findCategoryBySlug(categoria);
 
     if (!city || !result) {
@@ -28,7 +30,7 @@ export default async function CategoryPage({ params }: Props) {
     const categoryName = isSub ? result.data.title : result.data.title;
 
     // Obtener negocios de Sanity
-    const sanityNegocios = await getNegociosByCiudad(ciudad);
+    const sanityNegocios = await getNegociosByCiudad(slug);
 
     // Filter logic: if it's a main category, show all businesses in its subcategories
     // if it's a subcategory, show only those

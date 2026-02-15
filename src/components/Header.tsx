@@ -22,9 +22,9 @@ export default function Header() {
                 {/* Desktop Nav */}
                 <nav className="hidden lg:flex items-center gap-10">
                     <Link href="/" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Inicio</Link>
-                    <Link href="/oaxaca-centro/veterinarias" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Veterinarias</Link>
-                    <Link href="/oaxaca-centro/esteticas-grooming" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Grooming</Link>
-                    <Link href="/oaxaca-centro/pet-friendly" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Pet Friendly</Link>
+                    <Link href="/oaxaca/veterinarias" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Veterinarias</Link>
+                    <Link href="/oaxaca/esteticas-grooming" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Grooming</Link>
+                    <Link href="/oaxaca/pet-friendly" className="text-sm font-black uppercase tracking-widest text-slate-500 hover:text-orange-500 transition-colors">Pet Friendly</Link>
 
                     <div className="h-6 w-[1px] bg-slate-100"></div>
 
@@ -57,21 +57,21 @@ export default function Header() {
                             Inicio
                         </Link>
                         <Link
-                            href="/oaxaca-centro/veterinarias"
+                            href="/oaxaca/veterinarias"
                             onClick={() => setIsMenuOpen(false)}
                             className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
                         >
                             Veterinarias
                         </Link>
                         <Link
-                            href="/oaxaca-centro/esteticas-grooming"
+                            href="/oaxaca/esteticas-grooming"
                             onClick={() => setIsMenuOpen(false)}
                             className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
                         >
                             Grooming
                         </Link>
                         <Link
-                            href="/oaxaca-centro/pet-friendly"
+                            href="/oaxaca/pet-friendly"
                             onClick={() => setIsMenuOpen(false)}
                             className="text-sm font-black uppercase tracking-widest text-slate-600 hover:text-orange-500"
                         >

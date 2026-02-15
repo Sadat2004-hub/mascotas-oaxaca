@@ -42,7 +42,7 @@ export default function Footer() {
                         <ul className="space-y-4">
                             {categories.slice(0, 5).map(cat => (
                                 <li key={cat.id}>
-                                    <Link href={`/oaxaca-centro/${cat.slug}`} className="text-slate-600 hover:text-orange-600 font-bold text-sm transition-colors flex items-center gap-2 group">
+                                    <Link href={`/oaxaca/${cat.slug}`} className="text-slate-600 hover:text-orange-600 font-bold text-sm transition-colors flex items-center gap-2 group">
                                         <span className="w-1 h-1 bg-orange-200 rounded-full group-hover:scale-150 transition-all"></span>
                                         {cat.title}
                                     </Link>

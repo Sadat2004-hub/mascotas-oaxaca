@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body className={`${outfit.variable} font-sans antialiased bg-gray-50 text-gray-900`}>
         <Header />
         <main className="min-h-screen">
