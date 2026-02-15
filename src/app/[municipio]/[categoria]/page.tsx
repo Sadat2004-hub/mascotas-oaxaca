@@ -74,7 +74,7 @@ export default async function CategoryPage({ params }: Props) {
                 {filteredBusinesses.map((business: any) => (
                     <Link
                         key={business.id}
-                        href={`/${municipio}/${categoria}/${business.slug}`}
+                        href={`/${business.slug}`}
                         className="group bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden hover:shadow-2xl hover:shadow-orange-200/30 transition-all duration-500"
                     >
                         <div className="relative h-64 md:h-72 overflow-hidden">

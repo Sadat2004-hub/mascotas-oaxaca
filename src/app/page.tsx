@@ -113,6 +113,64 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Featured Businesses Section (Destacados de Sanity) */}
+      <section className="container mx-auto px-4 py-12">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+              <LucideIcons.Star size={14} /> Recomendados
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase italic leading-none">
+              Negocios <span className="text-orange-500">Destacados</span>
+            </h2>
+          </div>
+          <Link href="/oaxaca-centro" className="text-orange-600 font-black text-xs uppercase tracking-widest hover:text-orange-700 transition-colors flex items-center gap-2 border-b-2 border-orange-100 pb-2">
+            Ver todo el directorio <LucideIcons.ArrowRight size={16} />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {featuredBusinesses.map((business: any) => (
+            <Link
+              key={business.id}
+              href={`/${business.slug}`}
+              className="group bg-white rounded-[2.5rem] overflow-hidden border border-slate-100 shadow-xl hover:shadow-2xl hover:shadow-orange-200/30 transition-all duration-500"
+            >
+              <div className="relative h-64 overflow-hidden">
+                <Image
+                  src={business.image || '/images/placeholder-business.jpg'}
+                  alt={business.name}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute top-6 left-6">
+                  <div className="bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl text-[10px] font-black text-orange-600 shadow-xl uppercase tracking-widest">
+                    {business.priceRange || '$$'}
+                  </div>
+                </div>
+                <div className="absolute bottom-4 left-4">
+                  <div className="flex items-center gap-1.5 bg-yellow-400 px-3 py-1 rounded-full w-fit">
+                    <LucideIcons.Star size={12} fill="currentColor" stroke="none" />
+                    <span className="text-xs font-black text-yellow-950">{business.rating || '4.5'}</span>
+                  </div>
+                </div>
+              </div>
+              <div className="p-8">
+                <h3 className="text-2xl font-black text-slate-900 group-hover:text-orange-600 transition-colors uppercase tracking-tighter mb-4 leading-none">
+                  {business.name}
+                </h3>
+                <p className="text-slate-500 text-sm line-clamp-2 leading-relaxed font-medium mb-6">
+                  {business.description}
+                </p>
+                <div className="flex items-center gap-2 text-orange-600 font-bold text-[10px] uppercase tracking-widest">
+                  Ver Perfil Completo <LucideIcons.ArrowRight size={14} />
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
       {/* Trust & Stats with friendly colors */}
       <section className="container mx-auto px-4 py-12">
         <div className="bg-orange-500 rounded-[3rem] p-12 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-orange-200">
