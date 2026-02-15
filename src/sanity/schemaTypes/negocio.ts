@@ -52,8 +52,10 @@ export const negocioType = defineType({
             options: {
                 list: [
                     // Salud y Bienestar
-                    { title: '🏥 Veterinarias', value: 'veterinarias' },
+                    { title: '🏥 Hospitales y Urgencias 24h', value: 'hospitales-urgencias' },
+                    { title: '🩺 Consultorios Veterinarios', value: 'veterinarias' },
                     { title: '💆 Fisioterapia y Rehabilitación', value: 'fisioterapia' },
+                    { title: '💊 Farmacias Veterinarias', value: 'farmacias' },
                     { title: '💉 Esterilización y Campañas', value: 'esterilizacion' },
 
                     // Higiene y Belleza

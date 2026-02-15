@@ -19,8 +19,10 @@ export const categories: Category[] = [
         slug: 'salud-y-bienestar',
         icon: 'HeartPulse',
         subcategories: [
-            { title: 'Veterinarias', slug: 'veterinarias', filter: 'urgencias-24h' },
+            { title: 'Hospitales y Urgencias 24h', slug: 'hospitales-urgencias' },
+            { title: 'Consultorios Veterinarios', slug: 'veterinarias' },
             { title: 'Fisioterapia y Rehabilitación', slug: 'fisioterapia' },
+            { title: 'Farmacias Veterinarias', slug: 'farmacias' },
             { title: 'Esterilización y Campañas', slug: 'esterilizacion' }
         ]
     },
