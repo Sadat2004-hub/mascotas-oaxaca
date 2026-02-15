@@ -97,7 +97,7 @@ export default async function BusinessPage({ params }: Props) {
                                     {muni.name}
                                 </div>
                             </div>
-                            <h1 className="text-4xl md:text-7xl font-black text-white tracking-tighter leading-[0.9] mb-6 uppercase italic">
+                            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-none mb-6 uppercase italic">
                                 {business.name}
                             </h1>
                             <div className="flex flex-wrap items-center gap-6">

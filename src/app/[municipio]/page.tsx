@@ -35,9 +35,8 @@ export default async function MunicipioPage({ params }: Props) {
                     <span className="text-slate-300">{muni.name}</span>
                 </nav>
 
-                <h1 className="text-4xl md:text-8xl font-black text-slate-900 mb-8 tracking-tighter leading-[0.9] uppercase italic">
-                    Servicios en <br />
-                    <span className="text-orange-500 underline decoration-amber-200 underline-offset-8">{muni.name}</span>
+                <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-6 tracking-tighter leading-none uppercase italic">
+                    Explorar <span className="text-orange-500">Servicios</span>
                 </h1>
                 <p className="text-lg md:text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
                     Todo lo que tu mascota necesita en el corazón de {muni.name}. Explora por categorías y encuentra los mejores servicios.

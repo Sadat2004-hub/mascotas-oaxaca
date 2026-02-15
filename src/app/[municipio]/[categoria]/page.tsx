@@ -56,12 +56,11 @@ export default async function CategoryPage({ params }: Props) {
 
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                     <div className="max-w-4xl text-center md:text-left mx-auto md:mx-0">
-                        <h1 className="text-4xl md:text-8xl font-black text-slate-900 mb-6 tracking-tighter leading-[0.9] uppercase italic">
-                            {categoryName} <br />
-                            <span className="text-orange-500 underline decoration-amber-200 underline-offset-8">en {muni.name}</span>
+                        <h1 className="text-4xl md:text-6xl font-black text-slate-900 mb-4 tracking-tighter uppercase italic leading-none">
+                            {categoryName}
                         </h1>
                         <p className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
-                            Los mejores servicios de {categoryName.toLowerCase()} recomendados por la comunidad en {muni.name}.
+                            Los mejores servicios recomendados por la comunidad en {muni.name}.
                         </p>
                     </div>
                 </div>
