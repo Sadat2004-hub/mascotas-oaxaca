@@ -121,97 +121,127 @@ export default async function Home() {
             <div className="absolute bottom-10 right-10 w-64 h-64 bg-amber-200 rounded-full blur-[120px]"></div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-            <div>
-              <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight tracking-tighter text-balance">
-                ¡Haz que tu negocio sea el lugar favorito!
-              </h2>
-              <p className="text-xl text-orange-50 mb-12 font-medium leading-relaxed">
-                Únete a la mayor red de servicios para mascotas en Oaxaca. Conecta con miles de dueños que buscan lo mejor para sus peluditos.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  href="/sumar-negocio"
-                  className="bg-white text-orange-600 px-10 py-5 rounded-2xl font-black hover:bg-orange-50 transition-all shadow-xl shadow-orange-700/20 text-center"
-                >
-                  Registrar mi Negocio
-                </Link>
-                <Link
-                  href="/contacto"
-                  className="bg-orange-600 text-white border border-orange-400 px-10 py-5 rounded-2xl font-black hover:bg-orange-700 transition-all text-center"
-                >
-                  Saber más
-                </Link>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-8">
-              {[
-                { label: 'Negocios', value: '500+' },
-                { label: 'Municipios', value: '15+' },
-                { label: 'Visitas Mes', value: '10k+' },
-                { label: 'Reseñas', value: '2k+' },
-              ].map((stat, i) => (
-                <div key={i} className="bg-white/10 border border-white/20 p-8 rounded-[2rem] backdrop-blur-lg text-center">
-                  <div className="text-4xl font-black text-white mb-2 tracking-tighter">{stat.value}</div>
-                  <div className="text-sm font-bold text-orange-100 uppercase tracking-widest">{stat.label}</div>
-                </div>
-              ))}
+          <div className="flex flex-col items-center text-center relative z-10 max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-7xl font-black mb-10 leading-[0.9] tracking-tighter text-balance uppercase">
+              ¡Haz que tu negocio sea el lugar favorito!
+            </h2>
+            <p className="text-xl md:text-2xl text-orange-50 mb-12 font-medium leading-relaxed max-w-2xl">
+              Únete a la mayor red de servicios para mascotas en Oaxaca. Conecta con miles de dueños que buscan lo mejor para sus peluditos.
+            </p>
+            <div className="flex flex-wrap justify-center gap-6">
+              <Link
+                href="/sumar-negocio"
+                className="bg-white text-orange-600 px-12 py-6 rounded-[2rem] font-black hover:bg-orange-50 transition-all shadow-xl shadow-orange-700/20 text-center uppercase tracking-widest text-sm"
+              >
+                Registrar mi Negocio
+              </Link>
+              <Link
+                href="/contacto"
+                className="bg-orange-600 text-white border-2 border-orange-400 px-12 py-6 rounded-[2rem] font-black hover:bg-orange-700 transition-all text-center uppercase tracking-widest text-sm"
+              >
+                Saber más
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Businesses Section (Destacados) */}
+      {/* Patrocinadores Section */}
       <section className="container mx-auto px-4 pb-20">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-          <div className="max-w-xl">
-            <h2 className="text-4xl font-black text-slate-900 mb-4 tracking-tighter italic">Proveedores <span className="text-orange-500">Destacados</span></h2>
-            <p className="text-xl text-slate-500 font-medium">Los mejores servicios recomendados por nuestra comunidad.</p>
-          </div>
-          <Link href="/oaxaca-centro/veterinarias" className="text-orange-600 font-black flex items-center gap-2 hover:underline uppercase tracking-widest text-xs">
-            Ver Directorio Completo <LucideIcons.ChevronRight size={18} />
-          </Link>
-        </div>
+        <div className="bg-slate-50 rounded-[4rem] p-8 md:p-16 border border-slate-100 shadow-inner relative overflow-hidden">
+          {/* Subtle background decoration */}
+          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-100/30 rounded-full blur-3xl -mr-20 -mt-20"></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featuredBusinesses.map((business: any) => (
-            <Link
-              key={business.id}
-              href={`/${business.municipio}/${business.categoria}/${business.slug}`}
-              className="group bg-white rounded-[2.5rem] overflow-hidden border border-orange-50 shadow-xl hover:shadow-2xl hover:shadow-orange-200/30 transition-all duration-500"
-            >
-              <div className="relative h-64">
-                <Image
-                  src={business.image}
-                  alt={business.name}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute top-4 right-4 h-8 w-8 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-orange-500 shadow-lg">
-                  <LucideIcons.Star size={16} fill="currentColor" />
+          <div className="flex flex-col md:flex-row justify-between items-center mb-16 relative z-10">
+            <div className="text-center md:text-left mb-8 md:mb-0">
+              <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-600 px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                <LucideIcons.ShieldCheck size={14} /> Aliados Estratégicos
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter uppercase italic">
+                Nuestros <span className="text-orange-500 underline decoration-amber-300 underline-offset-8">Patrocinadores</span>
+              </h2>
+            </div>
+            <div className="hidden md:block">
+              <p className="text-slate-400 font-bold uppercase tracking-widest text-xs text-right">
+                Empresas que confían <br /> en la comunidad
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative z-10">
+            {[
+              {
+                id: 'p1',
+                name: 'Royal Pet Gourmet',
+                category: 'Alimentación Premium',
+                description: 'Nutrición orgánica y dietas especializadas para razas exigentes. Calidad de exportación ahora en Oaxaca.',
+                image: 'https://images.unsplash.com/photo-1589924691106-bc1b3075d6df?auto=format&fit=crop&q=80&w=800',
+                tag: 'Socio Oro',
+                icon: 'Bone'
+              },
+              {
+                id: 'p2',
+                name: 'Elite Grooming Spa',
+                category: 'Bienestar y Estética',
+                description: 'El primer spa de relajación profunda para mascotas. Cortes de alta peluquería y tratamientos dermatológicos.',
+                image: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?auto=format&fit=crop&q=80&w=800',
+                tag: 'Socio Platino',
+                icon: 'Sparkles'
+              },
+              {
+                id: 'p3',
+                name: 'BioHealth Center',
+                category: 'Salud Avanzada',
+                description: 'Tecnología médica de punta para diagnósticos precisos. Laboratorio clínico y especialidades de vanguardia.',
+                image: 'https://images.unsplash.com/photo-1628009368231-7bb7cfcb0def?auto=format&fit=crop&q=80&w=800',
+                tag: 'Socio Oro',
+                icon: 'Activity'
+              }
+            ].map((sponsor) => (
+              <div
+                key={sponsor.id}
+                className="group bg-white rounded-[3rem] p-4 border border-slate-100 shadow-xl hover:shadow-2xl hover:shadow-orange-200/40 transition-all duration-500 flex flex-col h-full"
+              >
+                <div className="relative h-56 w-full rounded-[2.5rem] overflow-hidden mb-6">
+                  <Image
+                    src={sponsor.image}
+                    alt={sponsor.name}
+                    fill
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-2xl">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
+                      <span className="text-[10px] font-black text-slate-800 uppercase tracking-widest">{sponsor.tag}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="px-4 pb-6 flex-1 flex flex-col">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-8 h-8 rounded-xl bg-orange-50 flex items-center justify-center text-orange-500">
+                      <IconWrapper name={sponsor.icon} size={16} />
+                    </div>
+                    <span className="text-[10px] font-black text-orange-500 uppercase tracking-[0.2em]">{sponsor.category}</span>
+                  </div>
+
+                  <h3 className="text-2xl font-black text-slate-900 mb-4 tracking-tight group-hover:text-orange-600 transition-colors uppercase leading-none">
+                    {sponsor.name}
+                  </h3>
+
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium mb-8 line-clamp-3">
+                    {sponsor.description}
+                  </p>
+
+                  <div className="mt-auto">
+                    <button className="w-full py-4 bg-slate-50 text-slate-900 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all border border-slate-100 group-hover:border-orange-200 shadow-sm flex items-center justify-center gap-2">
+                      Visitar Sitio Oficial <LucideIcons.ExternalLink size={14} />
+                    </button>
+                  </div>
                 </div>
               </div>
-              <div className="p-8">
-                <div className="flex items-center gap-2 mb-4">
-                  <div className="bg-orange-100 text-orange-600 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-lg">
-                    Premium
-                  </div>
-                  <span className="text-xs font-bold text-slate-400 truncate">{business.address.split(',')[0]}</span>
-                </div>
-                <h3 className="text-2xl font-black text-slate-900 mb-2 tracking-tight group-hover:text-orange-600 transition-colors uppercase leading-tight">{business.name}</h3>
-                <p className="text-slate-500 text-sm line-clamp-2 font-medium mb-6">{business.description}</p>
-                <div className="flex items-center justify-between pt-6 border-t border-slate-50">
-                  <span className="text-orange-600 font-black text-xs uppercase tracking-widest flex items-center gap-2">
-                    Ver más <LucideIcons.ArrowRight size={14} />
-                  </span>
-                  <div className="flex items-center gap-1 text-yellow-500 font-black text-sm">
-                    {business.rating}
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
     </div>
