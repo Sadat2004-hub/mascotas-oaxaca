@@ -33,12 +33,16 @@ export default async function CategoryPage({ params }: Props) {
     // Filter logic: if it's a main category, show all businesses in its subcategories
     // if it's a subcategory, show only those
     const filteredBusinesses = (sanityNegocios || []).filter((b: any) => {
+        if (!b.categorias || !Array.isArray(b.categorias)) return false;
+
         if (result.type === 'subcategory') {
-            return b.categoria === result.data.slug;
+            return b.categorias.includes(result.data.slug);
         } else {
             // result is a main category
             const subSlugs = result.data.subcategories.map(s => s.slug);
-            return subSlugs.includes(b.categoria);
+            // Show if it belongs to the main category itself OR any of its subcategories
+            return b.categorias.includes(result.data.slug) ||
+                b.categorias.some((cat: string) => subSlugs.includes(cat));
         }
     });
 

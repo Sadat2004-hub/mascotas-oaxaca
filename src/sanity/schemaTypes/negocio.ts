@@ -44,10 +44,11 @@ export const negocioType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'categoria',
-            title: 'Categoría',
-            description: 'Selecciona la categoría principal del negocio',
-            type: 'string',
+            name: 'categorias',
+            title: 'Categorías',
+            description: 'Selecciona todas las categorías que apliquen (ej. Veterinaria y Estética)',
+            type: 'array',
+            of: [{ type: 'string' }],
             options: {
                 list: [
                     // Salud y Bienestar
@@ -80,7 +81,7 @@ export const negocioType = defineType({
                     { title: '🏠 Refugios y Asociaciones', value: 'refugios' },
                 ],
             },
-            validation: (Rule) => Rule.required(),
+            validation: (Rule) => Rule.required().min(1),
         }),
         defineField({
             name: 'description',
