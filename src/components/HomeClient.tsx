@@ -24,6 +24,30 @@ export default function HomeClient({ featuredBusinesses }: Props) {
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
+        const query = searchQuery.toLowerCase().trim();
+
+        if (!query) {
+            window.location.href = `/${selectedCity}`;
+            return;
+        }
+
+        // Buscar coincidencia en categorías y subcategorías
+        for (const cat of categories) {
+            // Coincidencia exacta o parcial con categorías principal
+            if (cat.title.toLowerCase().includes(query) || cat.slug.includes(query)) {
+                window.location.href = `/${selectedCity}/${cat.slug}`;
+                return;
+            }
+            // Coincidencia con subcategorías
+            for (const sub of cat.subcategories) {
+                if (sub.title.toLowerCase().includes(query) || sub.slug.includes(query)) {
+                    window.location.href = `/${selectedCity}/${sub.slug}`;
+                    return;
+                }
+            }
+        }
+
+        // Si no hay coincidencia clara, vamos a la página de la ciudad
         window.location.href = `/${selectedCity}`;
     };
 
