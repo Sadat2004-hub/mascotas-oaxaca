@@ -103,9 +103,7 @@ export default function Footer() {
                     <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
                         © {currentYear} Mascotas Oaxaca. Hecho con ❤️ para los peluditos de Oaxaca.
                     </p>
-                    <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                        <span>By Annuar Salcido</span>
-                    </div>
+
                 </div>
             </div>
         </footer>
