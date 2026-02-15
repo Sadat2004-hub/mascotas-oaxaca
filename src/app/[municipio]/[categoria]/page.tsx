@@ -1,5 +1,6 @@
-import { businesses, municipios } from '@/data/db';
+import { municipios } from '@/data/db';
 import { findCategoryBySlug } from '@/data/categoryUtils';
+import { getNegociosByMunicipio } from '@/lib/sanity.queries';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +12,8 @@ interface Props {
         categoria: string;
     }>;
 }
+
+export const revalidate = 60; // Revalidar cada 60 segundos
 
 export default async function CategoryPage({ params }: Props) {
     const { municipio, categoria } = await params;
@@ -24,10 +27,12 @@ export default async function CategoryPage({ params }: Props) {
     const isSub = result.type === 'subcategory';
     const categoryName = isSub ? result.data.title : result.data.title;
 
+    // Obtener negocios de Sanity
+    const sanityNegocios = await getNegociosByMunicipio(municipio);
+
     // Filter logic: if it's a main category, show all businesses in its subcategories
     // if it's a subcategory, show only those
-    const filteredBusinesses = businesses.filter((b) => {
-        if (b.municipio !== municipio) return false;
+    const filteredBusinesses = (sanityNegocios || []).filter((b: any) => {
         if (result.type === 'subcategory') {
             return b.categoria === result.data.slug;
         } else {
@@ -66,7 +71,7 @@ export default async function CategoryPage({ params }: Props) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {filteredBusinesses.map((business) => (
+                {filteredBusinesses.map((business: any) => (
                     <Link
                         key={business.id}
                         href={`/${municipio}/${categoria}/${business.slug}`}
@@ -100,7 +105,7 @@ export default async function CategoryPage({ params }: Props) {
                             </p>
 
                             <div className="flex flex-wrap gap-2 mb-8">
-                                {business.tags.slice(0, 3).map(tag => (
+                                {business.tags.slice(0, 3).map((tag: any) => (
                                     <span key={tag} className="text-[10px] uppercase font-bold tracking-widest text-indigo-400 bg-indigo-50 px-3 py-1.5 rounded-xl">
                                         #{tag}
                                     </span>

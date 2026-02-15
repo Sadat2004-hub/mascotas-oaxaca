@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { municipios, businesses } from '@/data/db';
+import { municipios } from '@/data/db';
 import { categories } from '@/data/categories';
+import { getAllNegocios } from '@/lib/sanity.queries';
 import * as LucideIcons from 'lucide-react';
 import { LucideProps } from 'lucide-react';
 
@@ -11,8 +12,12 @@ const IconWrapper = ({ name, ...props }: { name: string } & LucideProps) => {
   return <Icon {...props} />;
 };
 
-export default function Home() {
-  const featuredBusinesses = businesses.slice(0, 3);
+export const revalidate = 60; // Revalidar cada 60 segundos
+
+export default async function Home() {
+  // Obtener negocios de Sanity
+  const sanityNegocios = await getAllNegocios();
+  const featuredBusinesses = (sanityNegocios || []).slice(0, 3);
 
   return (
     <div className="flex flex-col gap-20 pb-20">
@@ -170,7 +175,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featuredBusinesses.map((business) => (
+          {featuredBusinesses.map((business: any) => (
             <Link
               key={business.id}
               href={`/${business.municipio}/${business.categoria}/${business.slug}`}

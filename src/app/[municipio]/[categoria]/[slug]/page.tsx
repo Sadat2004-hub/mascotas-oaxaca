@@ -1,5 +1,6 @@
-import { businesses, municipios } from '@/data/db';
+import { municipios } from '@/data/db';
 import { findCategoryBySlug } from '@/data/categoryUtils';
+import { getNegocioBySlug } from '@/lib/sanity.queries';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Metadata, ResolvingMetadata } from 'next';
@@ -17,12 +18,14 @@ interface Props {
     }>;
 }
 
+export const revalidate = 60; // Revalidar cada 60 segundos
+
 export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     const { municipio, categoria, slug } = await params;
-    const business = businesses.find((b) => b.slug === slug);
+    const business = await getNegocioBySlug(slug);
     const muni = municipios.find((m) => m.slug === municipio);
     const catResult = findCategoryBySlug(categoria);
 
@@ -32,23 +35,23 @@ export async function generateMetadata(
 
     const catName = catResult.data.title;
     const title = `${business.name} en ${muni.name} | ${catName} - Mascotas Oaxaca`;
-    const description = business.description.substring(0, 160);
+    const description = business.description?.substring(0, 160) || '';
 
     return {
         title,
         description,
-        keywords: business.tags.join(', '),
+        keywords: business.tags?.join(', ') || '',
         openGraph: {
             title,
             description,
-            images: [business.image],
+            images: business.image ? [business.image] : [],
         },
     };
 }
 
 export default async function BusinessPage({ params }: Props) {
     const { municipio, categoria, slug } = await params;
-    const business = businesses.find((b) => b.slug === slug);
+    const business = await getNegocioBySlug(slug);
     const muni = municipios.find((m) => m.slug === municipio);
     const catResult = findCategoryBySlug(categoria);
 
@@ -121,7 +124,7 @@ export default async function BusinessPage({ params }: Props) {
                             <LucideIcons.CheckCircle2 className="text-indigo-600" /> Servicios y Especialidades
                         </h2>
                         <div className="flex flex-wrap gap-3">
-                            {business.tags.map((tag) => (
+                            {business.tags?.map((tag: any) => (
                                 <span key={tag} className="px-6 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-600 font-bold text-sm hover:border-indigo-200 hover:text-indigo-600 transition-all cursor-default">
                                     #{tag}
                                 </span>
@@ -135,7 +138,7 @@ export default async function BusinessPage({ params }: Props) {
                         <h2 className="text-3xl font-black text-gray-900 tracking-tighter">Reseñas de la comunidad</h2>
                         {business.reviews.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                {business.reviews.map((review) => (
+                                {business.reviews?.map((review: any) => (
                                     <div key={review.id} className="bg-white p-8 rounded-[2.5rem] border border-gray-50 shadow-md">
                                         <div className="flex justify-between items-start mb-4">
                                             <div className="flex items-center gap-3">
