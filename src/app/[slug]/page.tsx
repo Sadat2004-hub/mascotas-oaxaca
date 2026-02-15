@@ -26,6 +26,15 @@ const IconWrapper = ({ name, ...props }: { name: string } & LucideProps) => {
     return <Icon {...props} />;
 };
 
+const getMapUrl = (url: string) => {
+    if (!url) return '';
+    if (url.includes('<iframe')) {
+        const match = url.match(/src="([^"]+)"/);
+        return match ? match[1] : url;
+    }
+    return url;
+};
+
 export async function generateMetadata(
     { params }: Props,
     parent: ResolvingMetadata
@@ -199,7 +208,7 @@ export default async function DynamicPage({ params }: Props) {
                                         {business.mapEmbedUrl ? (
                                             <div className="w-full h-64 rounded-[2.5rem] overflow-hidden border-4 border-slate-50 shadow-inner">
                                                 <iframe
-                                                    src={business.mapEmbedUrl}
+                                                    src={getMapUrl(business.mapEmbedUrl)}
                                                     width="100%"
                                                     height="100%"
                                                     style={{ border: 0 }}
