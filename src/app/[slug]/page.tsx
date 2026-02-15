@@ -1,24 +1,19 @@
-import { ciudades } from '@/data/db';
-import { categories } from '@/data/categories';
-import { findCategoryBySlug } from '@/data/categoryUtils';
 import { getNegocioBySlug } from '@/lib/sanity.queries';
-import { notFound } from 'next/navigation';
+import { ciudades, Business } from '@/data/db';
+import { categories } from '@/data/categories';
+import { findCategoryBySlug } from '@/lib/category-utils';
 import Image from 'next/image';
-import Link from 'next/link';
 import * as LucideIcons from 'lucide-react';
 import { LucideProps } from 'lucide-react';
+import Link from 'next/link';
+import ReviewForm from '@/components/ReviewForm';
 import { Metadata, ResolvingMetadata } from 'next';
 import WhatsAppButton from '@/components/WhatsAppButton';
-import ReviewForm from '@/components/ReviewForm';
 import StructuredData from '@/components/StructuredData';
 
 interface Props {
-    params: Promise<{
-        slug: string;
-    }>;
+    params: Promise<{ slug: string }>;
 }
-
-export const revalidate = 60; // Revalidar cada 60 segundos
 
 const IconWrapper = ({ name, ...props }: { name: string } & LucideProps) => {
     // @ts-ignore
@@ -40,30 +35,25 @@ export async function generateMetadata(
     parent: ResolvingMetadata
 ): Promise<Metadata> {
     const { slug } = await params;
-
-    // Primero intentamos como negocio
     const business = await getNegocioBySlug(slug);
+
     if (business) {
-        const city = ciudades.find((c) => c.slug === business.ciudad);
-        const title = `${business.name} | Mascotas Oaxaca`;
-        const description = business.description?.substring(0, 160) || '';
         return {
-            title,
-            description,
+            title: `${business.name} | Mascotas Oaxaca`,
+            description: business.description,
             openGraph: {
-                title,
-                description,
-                images: business.image ? [business.image] : [],
+                title: business.name,
+                description: business.description,
+                images: [business.image || '/images/og-image.jpg'],
             },
         };
     }
 
-    // Luego como ciudad
-    const city = ciudades.find((c) => c.slug === slug);
+    const city = ciudades.find(c => c.slug === slug);
     if (city) {
         return {
             title: `Servicios para Mascotas en ${city.name} | Mascotas Oaxaca`,
-            description: `Encuentra los mejores servicios para tu mascota en ${city.name}, Oaxaca.`,
+            description: `Encuentra los mejores servicios para tu mascota en ${city.name}, Oaxaca. Veterinarias, estéticas, tiendas y más.`,
         };
     }
 
@@ -143,41 +133,6 @@ export default async function DynamicPage({ params }: Props) {
                                 ))}
                             </div>
                         </div>
-
-                        <ReviewForm businessId={business.id} />
-
-                        {/* Reseñas */}
-                        <div className="space-y-8 pt-12 border-t border-slate-100">
-                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase italic">Reseñas de la comunidad</h2>
-                            {business.reviews?.length > 0 ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {business.reviews?.map((review: any) => (
-                                        <div key={review.id} className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
-                                            <div className="flex justify-between items-start mb-6">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-black">
-                                                        {review.user?.charAt(0)}
-                                                    </div>
-                                                    <span className="font-black text-slate-900 uppercase text-[10px] tracking-widest">{review.user}</span>
-                                                </div>
-                                                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">{review.date}</span>
-                                            </div>
-                                            <div className="flex text-yellow-400 mb-4 gap-1">
-                                                {[...Array(5)].map((_, i) => (
-                                                    <LucideIcons.Star key={i} size={14} fill={i < (review.rating || 5) ? "currentColor" : "none"} stroke={i < (review.rating || 5) ? "none" : "currentColor"} />
-                                                ))}
-                                            </div>
-                                            <p className="text-slate-500 italic leading-relaxed font-medium text-sm">"{review.comment}"</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            ) : (
-                                <div className="bg-slate-50 p-12 rounded-[3rem] text-center border-2 border-dashed border-slate-200">
-                                    <LucideIcons.MessageSquare size={48} className="text-slate-200 mx-auto mb-4" />
-                                    <p className="text-slate-400 font-medium tracking-tight">Sé el primero en calificar este servicio.</p>
-                                </div>
-                            )}
-                        </div>
                     </div>
 
                     <div className="lg:col-span-1">
@@ -238,6 +193,46 @@ export default async function DynamicPage({ params }: Props) {
                         </div>
                     </div>
                 </div>
+
+                {/* Reseñas Section - Outside the grid to be at the bottom on mobile */}
+                <div className="mt-16 lg:mt-24 space-y-12">
+                    <div className="lg:max-w-4xl">
+                        <ReviewForm businessId={business.id} />
+
+                        <div className="space-y-8 pt-12 border-t border-slate-100 mt-12">
+                            <h2 className="text-3xl font-black text-slate-900 tracking-tighter uppercase italic">Reseñas de la comunidad</h2>
+                            {business.reviews?.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    {business.reviews?.map((review: any) => (
+                                        <div key={review.id} className="bg-slate-50 p-8 rounded-[2.5rem] border border-slate-100 shadow-sm">
+                                            <div className="flex justify-between items-start mb-6">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-black">
+                                                        {review.user?.charAt(0)}
+                                                    </div>
+                                                    <span className="font-black text-slate-900 uppercase text-[10px] tracking-widest">{review.user}</span>
+                                                </div>
+                                                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">{review.date}</span>
+                                            </div>
+                                            <div className="flex text-yellow-400 mb-4 gap-1">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <LucideIcons.Star key={i} size={14} fill={i < (review.rating || 5) ? "currentColor" : "none"} stroke={i < (review.rating || 5) ? "none" : "currentColor"} />
+                                                ))}
+                                            </div>
+                                            <p className="text-slate-500 italic leading-relaxed font-medium text-sm">"{review.comment}"</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="bg-slate-50 p-12 rounded-[3rem] text-center border-2 border-dashed border-slate-200">
+                                    <LucideIcons.MessageSquare size={48} className="text-slate-200 mx-auto mb-4" />
+                                    <p className="text-slate-400 font-medium tracking-tight">Sé el primero en calificar este servicio.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
                 <WhatsAppButton telephone={business.telephone} />
             </div>
         );
@@ -311,5 +306,14 @@ export default async function DynamicPage({ params }: Props) {
         );
     }
 
-    notFound();
+    return (
+        <div className="container mx-auto px-4 py-20 text-center">
+            <LucideIcons.AlertTriangle size={64} className="text-orange-500 mx-auto mb-8" />
+            <h1 className="text-4xl font-black text-slate-900 mb-4 uppercase italic">Página no encontrada</h1>
+            <p className="text-slate-500 mb-12 font-medium">Lo sentimos, no pudimos encontrar lo que buscas.</p>
+            <Link href="/" className="bg-orange-500 text-white px-10 py-5 rounded-[2rem] font-black uppercase tracking-widest text-xs">
+                Volver al inicio
+            </Link>
+        </div>
+    );
 }
