@@ -5,5 +5,5 @@ export default async function Home() {
   const sanityNegocios = await getAllNegocios();
   const featuredBusinesses = (sanityNegocios || []).slice(0, 3);
 
-  return <HomeClient featuredBusinesses={featuredBusinesses} />;
+  return <HomeClient featuredBusinesses={featuredBusinesses} allBusinesses={sanityNegocios || []} />;
 }

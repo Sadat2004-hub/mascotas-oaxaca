@@ -16,9 +16,10 @@ const IconWrapper = ({ name, ...props }: { name: string } & LucideProps) => {
 
 interface Props {
     featuredBusinesses: any[];
+    allBusinesses: any[];
 }
 
-export default function HomeClient({ featuredBusinesses }: Props) {
+export default function HomeClient({ featuredBusinesses, allBusinesses }: Props) {
     const [selectedCity, setSelectedCity] = useState('oaxaca');
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -31,20 +32,37 @@ export default function HomeClient({ featuredBusinesses }: Props) {
             return;
         }
 
-        // Buscar coincidencia en categorías y subcategorías
+        // 1. Buscar coincidencia exacta o fuerte en nombres de negocios
+        const businessMatch = allBusinesses.find(b =>
+            b.name.toLowerCase().includes(query) && b.ciudad === selectedCity
+        );
+        if (businessMatch) {
+            window.location.href = `/${businessMatch.slug}`;
+            return;
+        }
+
+        // 2. Buscar coincidencia en categorías y subcategorías
         for (const cat of categories) {
-            // Coincidencia exacta o parcial con categorías principal
             if (cat.title.toLowerCase().includes(query) || cat.slug.includes(query)) {
                 window.location.href = `/${selectedCity}/${cat.slug}`;
                 return;
             }
-            // Coincidencia con subcategorías
             for (const sub of cat.subcategories) {
                 if (sub.title.toLowerCase().includes(query) || sub.slug.includes(query)) {
                     window.location.href = `/${selectedCity}/${sub.slug}`;
                     return;
                 }
             }
+        }
+
+        // 3. Buscar en descripción o tags de negocios (si no hubo match arriba)
+        const partialBusinessMatch = allBusinesses.find(b =>
+            (b.description?.toLowerCase().includes(query) || b.tags?.some((t: string) => t.toLowerCase().includes(query))) &&
+            b.ciudad === selectedCity
+        );
+        if (partialBusinessMatch) {
+            window.location.href = `/${partialBusinessMatch.slug}`;
+            return;
         }
 
         // Si no hay coincidencia clara, vamos a la página de la ciudad
