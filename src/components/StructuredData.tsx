@@ -13,7 +13,7 @@ export default function StructuredData({ business, municipio, categoria }: Props
         '@context': 'https://schema.org',
         '@type': schemaType,
         name: business.name,
-        image: business.image,
+        image: business.image || '',
         telephone: business.telephone,
         address: {
             '@type': 'PostalAddress',
@@ -22,7 +22,7 @@ export default function StructuredData({ business, municipio, categoria }: Props
             addressRegion: 'Oaxaca',
             addressCountry: 'MX',
         },
-        aggregateRating: business.reviews.length > 0 ? {
+        aggregateRating: (business.reviews && business.reviews.length > 0) ? {
             '@type': 'AggregateRating',
             ratingValue: business.rating,
             reviewCount: business.reviews.length,

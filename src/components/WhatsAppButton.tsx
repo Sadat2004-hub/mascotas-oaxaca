@@ -1,4 +1,5 @@
 export default function WhatsAppButton({ telephone }: { telephone: string }) {
+    if (!telephone) return null;
     const whatsappUrl = `https://wa.me/${telephone.replace(/\+/g, '').replace(/ /g, '')}`;
 
     return (
