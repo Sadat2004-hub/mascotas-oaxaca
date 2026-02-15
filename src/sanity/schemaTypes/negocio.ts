@@ -29,16 +29,16 @@ export const negocioType = defineType({
             validation: (Rule) => Rule.required(),
         }),
         defineField({
-            name: 'municipio',
-            title: 'Municipio',
+            name: 'ciudad',
+            title: 'Ciudad',
             type: 'string',
             options: {
                 list: [
-                    { title: 'Oaxaca de Juárez', value: 'oaxaca-centro' },
-                    { title: 'Santa Cruz Xoxocotlán', value: 'xoxocotlan' },
-                    { title: 'Santa Lucía del Camino', value: 'santa-lucia' },
-                    { title: 'San Sebastián Tutla', value: 'san-sebastian' },
-                    { title: 'Santa María del Tule', value: 'el-tule' },
+                    { title: 'Ciudad de Oaxaca', value: 'oaxaca' },
+                    { title: 'Puerto Escondido', value: 'puerto-escondido' },
+                    { title: 'Bahías de Huatulco', value: 'huatulco' },
+                    { title: 'Pinotepa Nacional', value: 'pinotepa' },
+                    { title: 'Tlacolula de Matamoros', value: 'tlacolula' },
                 ],
             },
             validation: (Rule) => Rule.required(),

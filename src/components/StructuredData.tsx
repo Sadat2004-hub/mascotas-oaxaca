@@ -2,11 +2,11 @@ import { Business } from '@/data/db';
 
 interface Props {
     business: Business;
-    municipio: string;
+    ciudad: string;
     categoria: string;
 }
 
-export default function StructuredData({ business, municipio, categoria }: Props) {
+export default function StructuredData({ business, ciudad, categoria }: Props) {
     const schemaType = categoria.toLowerCase().includes('veterinaria') ? 'VeterinaryCare' : 'LocalBusiness';
 
     const schema = {
@@ -18,7 +18,7 @@ export default function StructuredData({ business, municipio, categoria }: Props
         address: {
             '@type': 'PostalAddress',
             streetAddress: business.address,
-            addressLocality: municipio,
+            addressLocality: ciudad,
             addressRegion: 'Oaxaca',
             addressCountry: 'MX',
         },

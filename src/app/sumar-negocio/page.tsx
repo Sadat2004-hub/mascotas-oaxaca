@@ -2,14 +2,14 @@
 
 import { useState } from 'react';
 import * as LucideIcons from 'lucide-react';
-import { municipios } from '@/data/db';
+import { ciudades } from '@/data/db';
 import { categories } from '@/data/categories';
 
 export default function SumarNegocioPage() {
     const [formData, setFormData] = useState({
         name: '',
         category: '',
-        municipio: '',
+        ciudad: 'oaxaca',
         phone: '',
         description: ''
     });
@@ -20,7 +20,7 @@ export default function SumarNegocioPage() {
         const message = `Hola! Quiero registrar mi negocio en Mascotas Oaxaca:%0A%0A` +
             `*Nombre:* ${formData.name}%0A` +
             `*Categoría:* ${formData.category}%0A` +
-            `*Municipio:* ${formData.municipio}%0A` +
+            `*Ciudad:* ${formData.ciudad}%0A` +
             `*Teléfono:* ${formData.phone}%0A` +
             `*Descripción:* ${formData.description}`;
 
@@ -105,18 +105,17 @@ export default function SumarNegocioPage() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 ml-2">Municipio</label>
+                                <label className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3 ml-2">Ciudad</label>
                                 <div className="relative">
                                     <select
                                         required
-                                        name="municipio"
-                                        value={formData.municipio}
+                                        name="ciudad"
+                                        value={formData.ciudad}
                                         onChange={handleChange}
                                         className="w-full px-8 py-5 rounded-[2rem] border border-slate-100 focus:outline-none focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 bg-slate-50 transition-all font-bold appearance-none cursor-pointer"
                                     >
-                                        <option value="">Selecciona municipio</option>
-                                        {municipios.map(m => (
-                                            <option key={m.id} value={m.name}>{m.name}</option>
+                                        {ciudades.map(c => (
+                                            <option key={c.id} value={c.name}>{c.name}</option>
                                         ))}
                                     </select>
                                     <LucideIcons.ChevronDown className="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" size={20} />

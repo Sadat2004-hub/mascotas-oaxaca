@@ -5,7 +5,7 @@ export const NEGOCIOS_ALL_QUERY = `*[_type == "negocio"] | order(order asc, _cre
   "id": _id,
   name,
   "slug": slug.current,
-  municipio,
+  ciudad,
   categorias,
   description,
   address,
@@ -21,12 +21,12 @@ export const NEGOCIOS_ALL_QUERY = `*[_type == "negocio"] | order(order asc, _cre
   reviews
 }`
 
-// Query para obtener negocios por municipio
-export const NEGOCIOS_BY_MUNICIPIO_QUERY = `*[_type == "negocio" && municipio == $municipio] | order(order asc, _createdAt desc) {
+// Query para obtener negocios por ciudad
+export const NEGOCIOS_BY_CIUDAD_QUERY = `*[_type == "negocio" && ciudad == $ciudad] | order(order asc, _createdAt desc) {
   "id": _id,
   name,
   "slug": slug.current,
-  municipio,
+  ciudad,
   categorias,
   description,
   address,
@@ -47,7 +47,7 @@ export const NEGOCIOS_BY_CATEGORIA_QUERY = `*[_type == "negocio" && $categoria i
   "id": _id,
   name,
   "slug": slug.current,
-  municipio,
+  ciudad,
   categorias,
   description,
   address,
@@ -63,12 +63,12 @@ export const NEGOCIOS_BY_CATEGORIA_QUERY = `*[_type == "negocio" && $categoria i
   reviews
 }`
 
-// Query para obtener negocios por municipio y categoría
-export const NEGOCIOS_BY_MUNICIPIO_CATEGORIA_QUERY = `*[_type == "negocio" && municipio == $municipio && $categoria in categorias] | order(order asc, _createdAt desc) {
+// Query para obtener negocios por ciudad y categoría
+export const NEGOCIOS_BY_CIUDAD_CATEGORIA_QUERY = `*[_type == "negocio" && ciudad == $ciudad && $categoria in categorias] | order(order asc, _createdAt desc) {
   "id": _id,
   name,
   "slug": slug.current,
-  municipio,
+  ciudad,
   categorias,
   description,
   address,
@@ -89,7 +89,7 @@ export const NEGOCIO_BY_SLUG_QUERY = `*[_type == "negocio" && slug.current == $s
   "id": _id,
   name,
   "slug": slug.current,
-  municipio,
+  ciudad,
   categorias,
   description,
   address,
@@ -110,16 +110,16 @@ export async function getAllNegocios() {
   return await client.fetch(NEGOCIOS_ALL_QUERY)
 }
 
-export async function getNegociosByMunicipio(municipio: string) {
-  return await client.fetch(NEGOCIOS_BY_MUNICIPIO_QUERY, { municipio })
+export async function getNegociosByCiudad(ciudad: string) {
+  return await client.fetch(NEGOCIOS_BY_CIUDAD_QUERY, { ciudad })
 }
 
 export async function getNegociosByCategoria(categoria: string) {
   return await client.fetch(NEGOCIOS_BY_CATEGORIA_QUERY, { categoria })
 }
 
-export async function getNegociosByMunicipioCategoria(municipio: string, categoria: string) {
-  return await client.fetch(NEGOCIOS_BY_MUNICIPIO_CATEGORIA_QUERY, { municipio, categoria })
+export async function getNegociosByCiudadCategoria(ciudad: string, categoria: string) {
+  return await client.fetch(NEGOCIOS_BY_CIUDAD_CATEGORIA_QUERY, { ciudad, categoria })
 }
 
 export async function getNegocioBySlug(slug: string) {

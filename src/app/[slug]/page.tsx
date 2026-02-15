@@ -1,7 +1,7 @@
-import { municipios } from '@/data/db';
+import { ciudades } from '@/data/db';
 import { categories } from '@/data/categories';
 import { findCategoryBySlug } from '@/data/categoryUtils';
-import { getNegociosByMunicipio, getNegocioBySlug } from '@/lib/sanity.queries';
+import { getNegocioBySlug } from '@/lib/sanity.queries';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -35,7 +35,7 @@ export async function generateMetadata(
     // Primero intentamos como negocio
     const business = await getNegocioBySlug(slug);
     if (business) {
-        const muni = municipios.find((m) => m.slug === business.municipio);
+        const city = ciudades.find((c) => c.slug === business.ciudad);
         const title = `${business.name} | Mascotas Oaxaca`;
         const description = business.description?.substring(0, 160) || '';
         return {
@@ -49,12 +49,12 @@ export async function generateMetadata(
         };
     }
 
-    // Luego como municipio
-    const muni = municipios.find((m) => m.slug === slug);
-    if (muni) {
+    // Luego como ciudad
+    const city = ciudades.find((c) => c.slug === slug);
+    if (city) {
         return {
-            title: `Servicios para Mascotas en ${muni.name} | Mascotas Oaxaca`,
-            description: `Encuentra los mejores servicios para tu mascota en ${muni.name}, Oaxaca.`,
+            title: `Servicios para Mascotas en ${city.name} | Mascotas Oaxaca`,
+            description: `Encuentra los mejores servicios para tu mascota en ${city.name}, Oaxaca.`,
         };
     }
 
@@ -68,14 +68,14 @@ export default async function DynamicPage({ params }: Props) {
     const business = await getNegocioBySlug(slug);
 
     if (business) {
-        const muni = municipios.find((m) => m.slug === business.municipio);
+        const city = ciudades.find((c) => c.slug === business.ciudad);
         const mainCatSlug = business.categorias?.[0] || 'veterinarias';
         const catResult = findCategoryBySlug(mainCatSlug);
         const catName = catResult ? catResult.data.title : 'Servicios';
 
         return (
             <div className="container mx-auto px-4 py-8 md:py-12 relative overflow-hidden">
-                <StructuredData business={business} municipio={muni?.name || ''} categoria={catName} />
+                <StructuredData business={business} ciudad={city?.name || ''} categoria={catName} />
 
                 {/* Header Section */}
                 <div className="mb-10 text-center md:text-left">
@@ -234,9 +234,9 @@ export default async function DynamicPage({ params }: Props) {
         );
     }
 
-    // 2. Intentar encontrar como municipio
-    const muni = municipios.find((m) => m.slug === slug);
-    if (muni) {
+    // 2. Intentar encontrar como ciudad
+    const city = ciudades.find((c) => c.slug === slug);
+    if (city) {
         return (
             <div className="container mx-auto px-4 py-12 md:py-20">
                 <div className="mb-16 md:mb-20">
@@ -244,7 +244,7 @@ export default async function DynamicPage({ params }: Props) {
                         Explorar <span className="text-orange-500">Servicios</span>
                     </h1>
                     <p className="text-lg md:text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
-                        Todo lo que tu mascota necesita en el corazón de {muni.name}. Explora por categorías y encuentra los mejores servicios.
+                        Todo lo que tu mascota necesita en el corazón de {city.name}. Explora por categorías y encuentra los mejores servicios.
                     </p>
                 </div>
 
@@ -252,7 +252,7 @@ export default async function DynamicPage({ params }: Props) {
                     {categories.map((cat) => (
                         <Link
                             key={cat.id}
-                            href={`/${muni.slug}/${cat.slug}`}
+                            href={`/${city.slug}/${cat.slug}`}
                             className="group bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-xl hover:shadow-2xl hover:shadow-orange-200/20 transition-all duration-500 relative overflow-hidden"
                         >
                             <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-orange-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700"></div>
@@ -288,7 +288,7 @@ export default async function DynamicPage({ params }: Props) {
                 <div className="mt-24 p-12 bg-slate-900 rounded-[4rem] text-white flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl">
                     <LucideIcons.Dog size={250} className="absolute -bottom-10 -right-10 opacity-10 rotate-12" />
                     <div className="relative z-10 max-w-xl text-center md:text-left">
-                        <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase italic leading-[0.9]">¿Tienes un negocio en <span className="text-orange-500">{muni.name}</span>?</h2>
+                        <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase italic leading-[0.9]">¿Tienes un negocio en <span className="text-orange-500">{city.name}</span>?</h2>
                         <p className="text-lg text-slate-400 font-medium mb-10 leading-relaxed">Únete al directorio médico y de servicios para mascotas más completo de Oaxaca.</p>
                         <Link
                             href="/sumar-negocio"

@@ -1,6 +1,6 @@
-import { municipios } from '@/data/db';
+import { ciudades } from '@/data/db';
 import { findCategoryBySlug } from '@/data/categoryUtils';
-import { getNegociosByMunicipio } from '@/lib/sanity.queries';
+import { getNegociosByCiudad } from '@/lib/sanity.queries';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import * as LucideIcons from 'lucide-react';
 
 interface Props {
     params: Promise<{
-        municipio: string;
+        ciudad: string;
         categoria: string;
     }>;
 }
@@ -16,11 +16,11 @@ interface Props {
 export const revalidate = 60; // Revalidar cada 60 segundos
 
 export default async function CategoryPage({ params }: Props) {
-    const { municipio, categoria } = await params;
-    const muni = municipios.find((m) => m.slug === municipio);
+    const { ciudad, categoria } = await params;
+    const city = ciudades.find((c) => c.slug === ciudad);
     const result = findCategoryBySlug(categoria);
 
-    if (!muni || !result) {
+    if (!city || !result) {
         notFound();
     }
 
@@ -28,7 +28,7 @@ export default async function CategoryPage({ params }: Props) {
     const categoryName = isSub ? result.data.title : result.data.title;
 
     // Obtener negocios de Sanity
-    const sanityNegocios = await getNegociosByMunicipio(municipio);
+    const sanityNegocios = await getNegociosByCiudad(ciudad);
 
     // Filter logic: if it's a main category, show all businesses in its subcategories
     // if it's a subcategory, show only those
@@ -55,7 +55,7 @@ export default async function CategoryPage({ params }: Props) {
                             {categoryName}
                         </h1>
                         <p className="text-lg md:text-xl text-slate-500 font-medium leading-relaxed max-w-2xl">
-                            Los mejores servicios recomendados por la comunidad en {muni.name}.
+                            Los mejores servicios recomendados por la comunidad en {city.name}.
                         </p>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ export default async function CategoryPage({ params }: Props) {
                             <div className="flex items-center gap-2 text-slate-400 mb-4">
                                 <LucideIcons.MapPin size={12} className="text-orange-500" />
                                 <span className="text-[10px] font-bold uppercase tracking-widest">
-                                    {business.address?.split(',')[0] || muni.name}
+                                    {business.address?.split(',')[0] || city.name}
                                 </span>
                             </div>
 

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { municipios } from '@/data/db';
+import { ciudades } from '@/data/db';
 import { categories } from '@/data/categories';
 import { getAllNegocios } from '@/lib/sanity.queries';
 import * as LucideIcons from 'lucide-react';
@@ -50,8 +50,8 @@ export default async function Home() {
             <div className="flex-1 flex items-center px-6 gap-3 border-r border-slate-100">
               <LucideIcons.MapPin className="text-orange-500 w-5 h-5" />
               <select className="flex-1 bg-transparent border-none text-slate-700 font-bold focus:outline-none appearance-none cursor-pointer">
-                {municipios.map(m => (
-                  <option key={m.id} value={m.slug}>{m.name}</option>
+                {ciudades.map(c => (
+                  <option key={c.id} value={c.slug}>{c.name}</option>
                 ))}
               </select>
             </div>
@@ -91,7 +91,7 @@ export default async function Home() {
                   {cat.subcategories.map((sub) => (
                     <li key={sub.slug}>
                       <Link
-                        href={`/oaxaca-centro/${sub.slug}`}
+                        href={`/oaxaca/${sub.slug}`}
                         className="flex items-center gap-2 text-slate-500 hover:text-orange-600 transition-colors group/link"
                       >
                         <span className="w-1.5 h-1.5 bg-orange-200 rounded-full group-hover/link:bg-orange-500 group-hover/link:scale-150 transition-all"></span>
@@ -102,7 +102,7 @@ export default async function Home() {
                 </ul>
 
                 <Link
-                  href={`/oaxaca-centro/${cat.slug}`}
+                  href={`/oaxaca/${cat.slug}`}
                   className="inline-flex items-center gap-2 bg-orange-50 px-6 py-3 rounded-xl text-orange-600 font-black text-xs uppercase tracking-widest hover:bg-orange-500 hover:text-white transition-all group-hover:shadow-lg"
                 >
                   Explorar Todo <LucideIcons.ArrowRight size={16} />
@@ -124,7 +124,7 @@ export default async function Home() {
               Negocios <span className="text-orange-500">Destacados</span>
             </h2>
           </div>
-          <Link href="/oaxaca-centro" className="text-orange-600 font-black text-xs uppercase tracking-widest hover:text-orange-700 transition-colors flex items-center gap-2 border-b-2 border-orange-100 pb-2">
+          <Link href="/oaxaca" className="text-orange-600 font-black text-xs uppercase tracking-widest hover:text-orange-700 transition-colors flex items-center gap-2 border-b-2 border-orange-100 pb-2">
             Ver todo el directorio <LucideIcons.ArrowRight size={16} />
           </Link>
         </div>

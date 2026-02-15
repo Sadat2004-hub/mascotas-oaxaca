@@ -10,7 +10,7 @@ export interface Business {
     id: string;
     name: string;
     slug: string;
-    municipio: string;
+    ciudad: string;
     categoria: string;
     description: string;
     address: string;
@@ -22,7 +22,7 @@ export interface Business {
     priceRange: string;
 }
 
-export interface Municipio {
+export interface Ciudad {
     id: string;
     name: string;
     slug: string;
@@ -33,7 +33,7 @@ export const businesses: Business[] = [
         id: '1',
         name: 'Hospital Veterinario de Oaxaca',
         slug: 'hospital-veterinario-de-oaxaca',
-        municipio: 'oaxaca-centro',
+        ciudad: 'oaxaca',
         categoria: 'veterinarias',
         description: 'Especialistas en cirugía, medicina interna y urgencias 24 horas. Contamos con tecnología de vanguardia para la salud de tu mascota.',
         address: 'Calle de los Libres 123, Centro Histórico, Oaxaca',
@@ -51,7 +51,7 @@ export const businesses: Business[] = [
         id: '2',
         name: 'Grooming Oaxaca Loft',
         slug: 'grooming-oaxaca-loft',
-        municipio: 'oaxaca-centro',
+        ciudad: 'oaxaca',
         categoria: 'esteticas-grooming',
         description: 'Estética canina profesional y spa. Cortes de raza, baño medicado y masajes relajantes para tu mejor amigo.',
         address: 'Av. Juárez 456, Santa María del Tule, Oaxaca',
@@ -63,30 +63,13 @@ export const businesses: Business[] = [
         ],
         tags: ['estetica-canina', 'spa', 'accesorios'],
         priceRange: '$$'
-    },
-    {
-        id: '3',
-        name: 'Café de las Mascotas',
-        slug: 'cafe-de-las-mascotas',
-        municipio: 'oaxaca-centro',
-        categoria: 'pet-friendly',
-        description: 'El primer café 100% pet-friendly en Oaxaca. Menú especial para humanos y snacks naturales para mascotas.',
-        address: 'Reforma 789, Jalatlaco, Oaxaca',
-        telephone: '+52 951 456 7890',
-        image: '/images/businesses/pet-friendly-cafe.jpg',
-        rating: 4.7,
-        reviews: [
-            { id: 'r4', user: 'Lucía R.', rating: 5, comment: 'Lugar encantador, mi perro ama sus galletas de avena.', date: '2024-01-08' }
-        ],
-        tags: ['restaurante', 'desayunos', 'wifi', 'snacks-mascotas'],
-        priceRange: '$$'
     }
 ];
 
-export const municipios: Municipio[] = [
-    { id: '1', name: 'Oaxaca de Juárez', slug: 'oaxaca-centro' },
-    { id: '2', name: 'Santa Cruz Xoxocotlán', slug: 'xoxocotlan' },
-    { id: '3', name: 'Santa Lucía del Camino', slug: 'santa-lucia' },
-    { id: '4', name: 'San Sebastián Tutla', slug: 'san-sebastian' },
-    { id: '5', name: 'Santa María del Tule', slug: 'el-tule' }
+export const ciudades: Ciudad[] = [
+    { id: '1', name: 'Ciudad de Oaxaca', slug: 'oaxaca' },
+    { id: '2', name: 'Puerto Escondido', slug: 'puerto-escondido' },
+    { id: '3', name: 'Bahías de Huatulco', slug: 'huatulco' },
+    { id: '4', name: 'Pinotepa Nacional', slug: 'pinotepa' },
+    { id: '5', name: 'Tlacolula de Matamoros', slug: 'tlacolula' }
 ];
