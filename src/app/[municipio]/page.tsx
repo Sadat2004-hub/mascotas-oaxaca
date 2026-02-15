@@ -26,20 +26,21 @@ export default async function MunicipioPage({ params }: Props) {
     }
 
     return (
-        <div className="container mx-auto px-4 py-20">
-            <div className="mb-20">
-                <nav className="flex items-center text-sm text-gray-400 mb-8 gap-3 font-semibold uppercase tracking-widest">
-                    <Link href="/" className="hover:text-indigo-600 transition-colors">Inicio</Link>
-                    <LucideIcons.ChevronRight size={14} />
-                    <span className="text-gray-900">{muni.name}</span>
+        <div className="container mx-auto px-4 py-12 md:py-20">
+            <div className="mb-16 md:mb-20">
+                {/* Breadcrumbs más sutiles */}
+                <nav className="flex items-center text-[10px] text-slate-400 mb-6 gap-2 font-bold uppercase tracking-[0.2em]">
+                    <Link href="/" className="hover:text-orange-500 transition-colors">Inicio</Link>
+                    <LucideIcons.ChevronRight size={10} />
+                    <span className="text-slate-300">{muni.name}</span>
                 </nav>
 
-                <h1 className="text-5xl md:text-8xl font-black text-gray-900 mb-8 tracking-tighter leading-none">
+                <h1 className="text-4xl md:text-8xl font-black text-slate-900 mb-8 tracking-tighter leading-[0.9] uppercase italic">
                     Servicios en <br />
-                    <span className="text-indigo-600">{muni.name}</span>
+                    <span className="text-orange-500 underline decoration-amber-200 underline-offset-8">{muni.name}</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-500 font-light max-w-2xl leading-relaxed">
-                    Explora por categorías y encuentra exactamente lo que tu mascota necesita en el corazón de {muni.name}.
+                <p className="text-lg md:text-xl text-slate-500 font-medium max-w-2xl leading-relaxed">
+                    Todo lo que tu mascota necesita en el corazón de {muni.name}. Explora por categorías y encuentra los mejores servicios.
                 </p>
             </div>
 
@@ -48,46 +49,50 @@ export default async function MunicipioPage({ params }: Props) {
                     <Link
                         key={cat.id}
                         href={`/${municipio}/${cat.slug}`}
-                        className="group bg-white rounded-[2.5rem] p-10 border border-gray-100/50 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 relative overflow-hidden"
+                        className="group bg-white rounded-[2.5rem] p-10 border border-slate-100 shadow-xl hover:shadow-2xl hover:shadow-orange-200/20 transition-all duration-500 relative overflow-hidden"
                     >
-                        <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-indigo-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700"></div>
+                        {/* Decoración de fondo */}
+                        <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-orange-50 rounded-full opacity-50 group-hover:scale-150 transition-transform duration-700"></div>
 
-                        <div className="relative z-10">
-                            <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg shadow-indigo-200 group-hover:rotate-6 transition-transform">
+                        <div className="relative z-10 text-center md:text-left">
+                            <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center text-white mb-8 shadow-lg shadow-orange-200 group-hover:rotate-6 transition-transform mx-auto md:mx-0">
                                 <IconWrapper name={cat.icon} size={32} strokeWidth={2.5} />
                             </div>
 
-                            <h2 className="text-2xl font-black text-gray-900 mb-6 tracking-tight uppercase leading-tight">{cat.title}</h2>
+                            <h2 className="text-2xl font-black text-slate-900 mb-6 tracking-tight uppercase leading-none">{cat.title}</h2>
 
-                            <div className="flex flex-wrap gap-2 mb-10">
+                            <div className="flex flex-wrap justify-center md:justify-start gap-2 mb-10">
                                 {cat.subcategories.slice(0, 3).map((sub) => (
-                                    <span key={sub.slug} className="text-[10px] font-black uppercase tracking-widest text-indigo-400 bg-indigo-50 px-3 py-1.5 rounded-xl border border-indigo-100">
+                                    <span key={sub.slug} className="text-[10px] font-black uppercase tracking-widest text-orange-400 bg-orange-50 px-3 py-1.5 rounded-xl border border-orange-100">
                                         {sub.title}
                                     </span>
                                 ))}
                                 {cat.subcategories.length > 3 && (
-                                    <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-100">
-                                        +{cat.subcategories.length - 3} más
+                                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-100">
+                                        +{cat.subcategories.length - 3}
                                     </span>
                                 )}
                             </div>
 
-                            <div className="flex items-center gap-3 text-indigo-600 font-black text-xs uppercase tracking-widest">
-                                Explorar Ahora <LucideIcons.ArrowRight size={16} />
+                            <div className="flex items-center justify-center md:justify-start gap-3 text-orange-600 font-black text-[10px] uppercase tracking-widest">
+                                Explorar Sección <LucideIcons.ArrowRight size={16} />
                             </div>
                         </div>
                     </Link>
                 ))}
             </div>
 
-            <div className="mt-24 p-12 bg-indigo-600 rounded-[3rem] text-white flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden">
-                <LucideIcons.Dog size={200} className="absolute -bottom-10 -right-10 opacity-10 rotate-12" />
-                <div className="relative z-10 max-w-xl">
-                    <h2 className="text-3xl md:text-5xl font-black mb-6 tracking-tighter">¿Tienes un negocio en {muni.name}?</h2>
-                    <p className="text-xl text-white/80 font-light mb-8">Aumenta tu visibilidad y llega a más dueños de mascotas registrándote hoy mismo en nuestro directorio.</p>
-                    <button className="bg-white text-indigo-600 px-10 py-5 rounded-[2rem] font-black hover:bg-gray-100 transition-all shadow-xl">
-                        Comenzar Registro Gratis
-                    </button>
+            <div className="mt-24 p-12 bg-slate-900 rounded-[4rem] text-white flex flex-col md:flex-row items-center justify-between gap-12 relative overflow-hidden shadow-2xl">
+                <LucideIcons.Dog size={250} className="absolute -bottom-10 -right-10 opacity-10 rotate-12" />
+                <div className="relative z-10 max-w-xl text-center md:text-left">
+                    <h2 className="text-4xl md:text-6xl font-black mb-6 tracking-tighter uppercase italic leading-[0.9]">¿Tienes un negocio en <span className="text-orange-500">{muni.name}</span>?</h2>
+                    <p className="text-lg text-slate-400 font-medium mb-10 leading-relaxed">Únete al directorio médico y de servicios para mascotas más completo de Oaxaca.</p>
+                    <Link
+                        href="/sumar-negocio"
+                        className="inline-block bg-orange-500 text-white px-12 py-6 rounded-[2rem] font-black hover:bg-orange-600 transition-all shadow-xl shadow-orange-950/20 uppercase tracking-widest text-sm"
+                    >
+                        Registrar Gratis
+                    </Link>
                 </div>
             </div>
         </div>
